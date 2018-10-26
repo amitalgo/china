@@ -22,8 +22,8 @@
                 <a class="nav-link dropdown-toggle text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="@if(null!=$profile->getProfileImage()){{$profile->getProfileImage()}}@else{{asset('images/users/5.jpg')}}@endif" alt="user" class="profile-pic" /></a>
                 <div class="dropdown-menu dropdown-menu-right animated zoomIn">
                     <ul class="dropdown-user">
-                        <li><a href="{{route('admin.user.account')}}"><i class="fa fa-user"></i> My Account</a></li>
-                        <li><a href="{{route('admin.user.account.change-password')}}"><i class="fa fa-key"></i> Change Password</a></li>
+                        <li><a href="{{route('admin.account')}}"><i class="fa fa-user"></i> My Account</a></li>
+                        <li><a href="{{route('admin.account.change-password')}}"><i class="fa fa-key"></i> Change Password</a></li>
                         <li><a href="#"><i class="fa fa-life-ring"></i> Help</a></li>
                         <li><a href="{{route('admin.logout')}}"><i class="fa fa-power-off"></i> Logout</a></li>
                     </ul>

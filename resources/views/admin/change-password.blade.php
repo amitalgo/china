@@ -21,7 +21,7 @@
                     <h4 class="card-title">Update Password</h4>
                     <div class="card-body">
                         <div class="form-validation">
-                            <form class="form-valide" action="{{route('admin.user.account.update-password')}}" method="post">
+                            <form class="form-valide" action="{{route('admin.account.update-password')}}" method="post">
                                 @csrf
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label" for="new-password">New Password<span class="text-danger">*</span></label>

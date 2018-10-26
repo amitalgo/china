@@ -9,7 +9,7 @@
 namespace App\Service;
 
 
-interface UserService{
+interface AdminService{
 
     public function getUsers();
 

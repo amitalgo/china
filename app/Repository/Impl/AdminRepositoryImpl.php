@@ -9,17 +9,17 @@
 namespace App\Repository\Impl;
 
 
-use App\Repository\UserRepository;
+use App\Repository\AdminRepository;
 use Doctrine\ORM\EntityRepository;
 
-class UserRepositoryImpl extends EntityRepository implements UserRepository{
+class AdminRepositoryImpl extends EntityRepository implements AdminRepository{
 
     public function findUsers(){
         // TODO: Implement findUsers() method.
     }
 
     public function findActiveUsers(){
-        // TODO: Implement findActiveUsers() method.
+        return $this->findBy(['isActive'=>1]);
     }
 
     public function findUser($id){

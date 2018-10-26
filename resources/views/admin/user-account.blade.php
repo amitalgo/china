@@ -21,7 +21,7 @@
                     <h4 class="card-title">Update Account</h4>
                     <div class="card-body">
                         <div class="form-validation">
-                            <form class="form-valide" action="{{route('admin.user.account.update')}}" method="post" enctype="multipart/form-data">
+                            <form class="form-valide" action="{{route('admin.account.update')}}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <div class="col-md-12">
                                     <div class="col-md-8 float-left">

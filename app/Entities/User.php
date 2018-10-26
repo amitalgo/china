@@ -11,6 +11,7 @@ namespace  App\Entities;
 
 use Doctrine\ORM\Mapping as ORM;
 use Illuminate\Contracts\Auth\Authenticatable;
+use Laravel\Passport\HasApiTokens;
 
 
 /**
@@ -21,6 +22,7 @@ use Illuminate\Contracts\Auth\Authenticatable;
 class User implements Authenticatable
 {
 
+    use HasApiTokens;
     /**
      * @var integer
      * @ORM\Id
@@ -56,9 +58,15 @@ class User implements Authenticatable
 
     /**
      * @var string
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="bigint")
      */
-    private $isAdmin;
+    private $contactNumber;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string", length=200, nullable=true)
+     */
+    private $location;
 
     /**
      * @var string
@@ -78,6 +86,52 @@ class User implements Authenticatable
      * @ORM\Column(type="string", nullable=true)
      */
     private $rememberToken;
+
+    /**
+     * @var datetime $createdAt
+     *
+     * @ORM\Column(type="datetime")
+     */
+    protected $createdAt;
+
+    /**
+     * @var datetime $updatedAt
+     *
+     * @ORM\Column(type="datetime", nullable = true)
+     */
+    protected $updatedAt;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="UserRole")
+     * @ORM\JoinColumn(name="user_role", referencedColumnName="id")
+     */
+    private $userRole;
+
+    /**
+     * @ORM\OneToMany(targetEntity="JobPosted", fetch="EAGER",mappedBy="userId",cascade={"persist"})
+     */
+    private $userJobPost;
+
+    /**
+     * @ORM\OneToMany(targetEntity="JobApplied", fetch="EAGER",mappedBy="userId",cascade={"persist"})
+     */
+    private $userJobApplied;
+
+    /**
+     * @ORM\OneToMany(targetEntity="ContactUsList", fetch="EAGER",mappedBy="userId",cascade={"persist"})
+     */
+    private $userContactUsList;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Notification", fetch="EAGER",mappedBy="userId",cascade={"persist"})
+     */
+    private $userNotification;
+
+    /**
+     * @ORM\OneToMany(targetEntity="NotificationUserDevice", fetch="EAGER",mappedBy="userId",cascade={"persist"})
+     */
+    private $userDevice;
+
     /**
      * Get the name of the unique identifier for the user.
      *
@@ -219,23 +273,6 @@ class User implements Authenticatable
         $this->profileImage = $profileImage;
     }
 
-
-    /**
-     * @return string
-     */
-    public function getisAdmin()
-    {
-        return $this->isAdmin;
-    }
-
-    /**
-     * @param string $isAdmin
-     */
-    public function setIsAdmin($isAdmin)
-    {
-        $this->isAdmin = $isAdmin;
-    }
-
     /**
      * @return string
      */
@@ -268,7 +305,44 @@ class User implements Authenticatable
         $this->password = $password;
     }
 
+    /**
+     * Gets triggered only on insert
 
+     * @ORM\PrePersist
+     */
+    public function onPrePersist()
+    {
+        $this->createdAt = new \DateTime("now");
+    }
 
+    /**
+     * Gets triggered every time on update
+
+     * @ORM\PreUpdate
+     */
+    public function onPreUpdate()
+    {
+        $this->updatedAt = new \DateTime("now");
+    }
+
+    public function getKey() {
+        return $this->getId();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUserRole()
+    {
+        return $this->userRole;
+    }
+
+    /**
+     * @param mixed $userRole
+     */
+    public function setUserRole($userRole)
+    {
+        $this->userRole = $userRole;
+    }
 
 }

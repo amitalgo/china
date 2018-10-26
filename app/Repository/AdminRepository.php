@@ -9,7 +9,7 @@
 namespace App\Repository;
 
 
-interface UserRepository{
+interface AdminRepository{
     public function findUsers();
 
     public function findActiveUsers();

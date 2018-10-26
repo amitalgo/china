@@ -17,20 +17,29 @@ Route::group(['prefix'=>'admin'], function (){
 
     Route::group(['middleware'=>'auth:admin'], function (){
         Route::get('/logout', 'Admin\LoginController@logout')->name('admin.logout');
+
         Route::get('/dashboard', 'Admin\DashboardController@index')->name('admin.dashboard');
-        Route::get('/user/account', 'Admin\UserController@account')->name('admin.user.account');
-        Route::post('/user/account/update', 'Admin\UserController@accountUpdate')->name('admin.user.account.update');
-        Route::get('/user/account/change-password', 'Admin\UserController@changePassword')->name('admin.user.account.change-password');
-        Route::post('/user/account/change-password', 'Admin\UserController@updatePassword')->name('admin.user.account.update-password');
-        Route::get('/page', 'Admin\PageController@index')->name('admin.page');
-        Route::get('/page/create', 'Admin\PageController@create')->name('admin.page.create');
-        Route::post('/page/store', 'Admin\PageController@store')->name('admin.page.store');
-        Route::get('/page/{id}/edit', 'Admin\PageController@edit')->name('admin.page.edit');
-        Route::post('/page/{id}/update', 'Admin\PageController@update')->name('admin.page.update');
-        Route::get('/custom-ui', 'Admin\CustomUiController@index')->name('admin.customui');
-        Route::get('/custom-ui/create', 'Admin\CustomUiController@create')->name('admin.customui.create');
-        Route::post('/custom-ui/store', 'Admin\CustomUiController@store')->name('admin.customui.store');
-        Route::get('/custom-ui/{id}/edit', 'Admin\CustomUiController@edit')->name('admin.customui.edit');
-        Route::post('/custom-ui/{id}/update', 'Admin\CustomUiController@update')->name('admin.customui.update');
+
+
+        Route::get('/account', 'Admin\AdminController@account')->name('admin.account');
+        Route::post('/account/update', 'Admin\AdminController@accountUpdate')->name('admin.account.update');
+        Route::get('/account/change-password', 'Admin\AdminController@changePassword')->name('admin.account.change-password');
+        Route::post('/account/change-password', 'Admin\AdminController@updatePassword')->name('admin.account.update-password');
+
+
+//        Route::get('/page', 'Admin\PageController@index')->name('admin.page');
+//        Route::get('/page/create', 'Admin\PageController@create')->name('admin.page.create');
+//        Route::post('/page/store', 'Admin\PageController@store')->name('admin.page.store');
+//        Route::get('/page/{id}/edit', 'Admin\PageController@edit')->name('admin.page.edit');
+//        Route::post('/page/{id}/update', 'Admin\PageController@update')->name('admin.page.update');
+//        Route::get('/custom-ui', 'Admin\CustomUiController@index')->name('admin.customui');
+//        Route::get('/custom-ui/create', 'Admin\CustomUiController@create')->name('admin.customui.create');
+//        Route::post('/custom-ui/store', 'Admin\CustomUiController@store')->name('admin.customui.store');
+//        Route::get('/custom-ui/{id}/edit', 'Admin\CustomUiController@edit')->name('admin.customui.edit');
+//        Route::post('/custom-ui/{id}/update', 'Admin\CustomUiController@update')->name('admin.customui.update');
+
+        // SubAdmin
+        Route::resource('/sub-admin','Admin\AdminController');
+
     });
 });

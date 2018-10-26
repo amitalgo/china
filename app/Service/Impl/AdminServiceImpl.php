@@ -10,16 +10,16 @@ namespace App\Service\Impl;
 
 
 use App\Helper\FileUploadHelper;
-use App\Repository\UserRepository;
-use App\Service\UserService;
+use App\Repository\AdminRepository;
+use App\Service\AdminService;
 use Illuminate\Support\Facades\Hash;
 
-class UserServiceImpl extends FileUploadHelper implements  UserService {
+class AdminServiceImpl extends FileUploadHelper implements  AdminService {
 
-    private $userRepository;
+    private $adminRepository;
 
-    public function __construct(UserRepository $userRepository){
-        $this->userRepository = $userRepository;
+    public function __construct(AdminRepository $adminRepository){
+        $this->adminRepository = $adminRepository;
     }
 
     public function getUsers(){
@@ -27,7 +27,7 @@ class UserServiceImpl extends FileUploadHelper implements  UserService {
     }
 
     public function getActiveUsers(){
-
+        return $this->adminRepository->findActiveUsers();
     }
 
     public function getUser($id){
@@ -39,7 +39,7 @@ class UserServiceImpl extends FileUploadHelper implements  UserService {
     }
 
     public function updateUser($request, $id){
-        $user = $this->userRepository->findUser($id);
+        $user = $this->adminRepository->findUser($id);
         $user->setFirstName($request->get('first-name'));
         $user->setLastName($request->get('last-name'));
         $user->setEmail($request->get('email'));
@@ -47,12 +47,12 @@ class UserServiceImpl extends FileUploadHelper implements  UserService {
         if($profilePic){
             $user->setProfileImage($profilePic);
         }
-        return $this->userRepository->saveOrUpdateUser($user);
+        return $this->adminRepository->saveOrUpdateUser($user);
     }
 
     public function updatePassword($request, $id){
-        $user = $this->userRepository->findUser($id);
+        $user = $this->adminRepository->findUser($id);
         $user->setPassword(Hash::make($request->get('new-password')));
-        return $this->userRepository->saveOrUpdateUser($user);
+        return $this->adminRepository->saveOrUpdateUser($user);
     }
 }

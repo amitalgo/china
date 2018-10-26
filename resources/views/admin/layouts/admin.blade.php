@@ -26,40 +26,81 @@
                     <!-- Sidebar navigation-->
                     <nav class="sidebar-nav">
                         <ul id="sidebarnav">
-                            <li><a href=""><i class="fa fa-home"></i>Dashboard </a></li>
-                            <li class="nav-label">General</li>
-                            <li class="item2" id="layout_3" role="presentation">
-                                <a href="#" aria-expanded="false">
-                                    <i class="icon-item2 fa fa-users"></i>
-                                    <span>Contact Details</span>
-                                </a>
-                            </li>
+                            <li><a href="{{ url('admin/dashboard') }}"><i class="fa fa-home"></i>Dashboard </a></li>
                             <li class="nav-label">Manage Jobs</li>
 
-                            <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-wpforms"></i><span class="hide-menu">Jobs</span></a>
-                                <ul aria-expanded="false" class="collapse">
-                                    <li><a href="form-basic.html">Job Type</a></li>
-                                    <li><a href="form-layout.html">Jobs</a></li>
-                                </ul>
+                            <li class="item2" id="layout_3" role="presentation">
+                                <a href="#" aria-expanded="false">
+                                    <i class="icon-item2 fa fa-globe"></i>
+                                    <span>Job Type</span>
+                                </a>
                             </li>
+                            <li class="item2" id="layout_3" role="presentation">
+                                <a href="#" aria-expanded="false">
+                                    <i class="icon-item2 fa fa-suitcase"></i>
+                                    <span>Jobs</span>
+                                </a>
+                            </li>
+                            <li class="item2" id="layout_3" role="presentation">
+                                <a href="#" aria-expanded="false">
+                                    <i class="icon-item2 fa fa-tasks"></i>
+                                    <span>Job Applications</span>
+                                </a>
+                            </li>
+                            <li class="nav-label">Content Management</li>
+                            <li class="item2" id="layout_3" role="presentation">
+                                <a href="#" aria-expanded="false">
+                                    <i class="icon-item2 fa fa-book"></i>
+                                    <span>About Us</span>
+                                </a>
+                            </li>
+
                             <li class="nav-label">Manage Users</li>
                             <li class="item2" id="layout_3" role="presentation">
                                 <a href="#" aria-expanded="false">
-                                    <i class="icon-item2 fa fa-user"></i>
+                                    <i class="icon-item2 fa fa-users"></i>
                                     <span>Users</span>
                                 </a>
                             </li>
                             <li class="nav-label">Dictionary</li>
                             <li class="item2" id="layout_3" role="presentation">
                                 <a href="#" aria-expanded="false">
-                                    <i class="icon-item2 fa fa-user"></i>
+                                    <i class="icon-item2 fa fa-globe"></i>
                                     <span>Words</span>
                                 </a>
                             </li>
-                            {{--<li><a href="{{route('admin.page')}}"><i class="fa fa-file"></i>Page </a></li>--}}
-                            {{--<li><a href="{{route('admin.customui')}}"><i class="fa fa-file-code-o"></i>Custom UI </a></li>--}}
-                            {{--<li><a href="#"><i class="fa fa-image"></i>Slider </a></li>--}}
-                            {{--<li><a href="#"><i class="fa fa-th-large"></i>Content Block </a></li>--}}
+                            <li class="nav-label">General</li>
+                            <li class="item2" id="layout_3" role="presentation">
+                                <a href="#" aria-expanded="false">
+                                    <i class="icon-item2 fa fa-envelope"></i>
+                                    <span>Enquiries</span>
+                                </a>
+                            </li>
+                            <li class="item2" id="layout_3" role="presentation">
+                                <a href="#" aria-expanded="false">
+                                    <i class="icon-item2 fa fa-wrench"></i>
+                                    <span>Email Configuration</span>
+                                </a>
+                            </li>
+                            <li class="item2" id="layout_3" role="presentation">
+                                <a href="#" aria-expanded="false">
+                                    <i class="icon-item2 fa fa-bell"></i>
+                                    <span>Notifications</span>
+                                </a>
+                            </li>
+                            <li class="nav-label">Manage Admin</li>
+                            <li class="item2" id="layout_3" role="presentation">
+                                <a href="#" aria-expanded="false">
+                                    <i class="icon-item2 fa fa-cogs"></i>
+                                    <span>Roles</span>
+                                </a>
+                            </li>
+                            <li class="item2" id="layout_3" role="presentation">
+                                <a href="{{url('admin/sub-admin')}}" aria-expanded="false">
+                                    <i class="icon-item2 fa fa-user-secret"></i>
+                                    <span>Admin</span>
+                                </a>
+                            </li>
                         </ul>
                     </nav>
                     <!-- End Sidebar navigation -->
@@ -91,6 +132,10 @@
         <script src="{{asset('js/custom.min.js')}}"></script>
         <!-- Common Javascript -->
         <script src="{{asset('js/common.js')}}"></script>
+
+        {{--Datatables--}}
+        <script src="{{asset('js/lib/datatables/datatables.min.js')}}"></script>
+        <script src="{{asset('js/lib/datatables/datatables-init.js')}}"></script>
 
         @stack('scripts')
     </body>

@@ -42,13 +42,13 @@ return [
         ],
 
         'api' => [
-            'driver' => 'token',
+            'driver' => 'passport',
             'provider' => 'users',
         ],
 
         'admin' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'admin',
         ],
     ],
 
@@ -70,15 +70,15 @@ return [
     */
 
     'providers' => [
+        'admin' => [
+            'driver' => 'doctrine',
+            'model' => App\Entities\Admin::class,
+        ],
+
         'users' => [
             'driver' => 'doctrine',
             'model' => App\Entities\User::class,
         ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
     ],
 
     /*
