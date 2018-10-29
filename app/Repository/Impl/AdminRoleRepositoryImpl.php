@@ -10,7 +10,11 @@ class AdminRoleRepositoryImpl extends EntityRepository implements AdminRoleRepos
         return $this->find($id);
     }
 
-    public function findExistingAdminRole($id){
-//        dd($this->findBy(['id'=>2])[0]->getAdminId());
+    public function deleteExistingAdminRole($id){
+        $adminRoles = $this->findBy(['adminId'=>$id]);
+        foreach($adminRoles as $adminRole){
+            $this->remove($adminRole);
+        }
+
     }
 }

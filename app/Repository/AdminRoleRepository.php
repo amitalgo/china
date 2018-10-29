@@ -12,5 +12,5 @@ namespace App\Repository;
 interface AdminRoleRepository{
     public function findActiveAdminRoleById($id);
 
-    public function findExistingAdminRole($id);
+    public function deleteExistingAdminRole($id);
 }

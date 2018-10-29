@@ -80,8 +80,8 @@ class AdminServiceImpl extends FileUploadHelper implements  AdminService {
             $admin->setProfileImage($profilePic);
         }
 
-        dd($request->all());
-//        $admin_roles=$this->adminRoleRepository->findExistingAdminRole($id);
+        $admin_roles=$this->adminRoleRepository->deleteExistingAdminRole($id);
+        dd($admin_roles);
 //        dd($admin_roles[0]->getAdmin());
 //        if(null==($request->get('isAdmin'))) {
 //            $admin->setIsSuperUser(0);
