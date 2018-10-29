@@ -23,6 +23,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
+                        @include('admin.includes.alert')
                         <h4 class="card-title">List of SubAdmin
                             <span class="pull-right">
                             <a class="btn btn-primary m-b-10 m-l-5" href="{{ route('sub-admin.create') }}"><i class="fa fa-plus"></i> Add </a></span>
@@ -49,7 +50,7 @@
                                     <td>{{ $admin->getContactNumber() }}</td>
                                     <td>Admin</td>
                                     <td>@if($admin->getisSuperUser()) Yes @else No @endif </td>
-                                    <td><a href="#" class="btn btn-icon waves-effect waves-light btn-white">
+                                    <td><a href="{{ route('sub-admin.edit',['admin'=>$admin->getId()]) }}" class="btn btn-icon waves-effect waves-light btn-white">
                                             <i class="fa fa-edit"></i>
                                         </a></td>
                                 </tr>
@@ -66,3 +67,11 @@
     </div>
     <!-- End Container fluid  -->
 @endsection
+@push('scripts')
+    <script type="text/javascript" src="{{asset('js/subadmin.js')}}"></script>
+    <script type="text/javascript">
+        $('document').ready(function () {
+            SubAdmin.initControls();
+        });
+    </script>
+@endpush

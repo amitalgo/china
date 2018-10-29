@@ -9,17 +9,21 @@
 namespace App\Service\Impl;
 
 
+use App\Entities\Admin;
+use App\Entities\AdminRole;
 use App\Helper\FileUploadHelper;
 use App\Repository\AdminRepository;
+use App\Repository\AdminRoleRepository;
 use App\Service\AdminService;
 use Illuminate\Support\Facades\Hash;
 
 class AdminServiceImpl extends FileUploadHelper implements  AdminService {
 
-    private $adminRepository;
+    private $adminRepository,$adminRoleRepository;
 
-    public function __construct(AdminRepository $adminRepository){
+    public function __construct(AdminRepository $adminRepository,AdminRoleRepository $adminRoleRepository){
         $this->adminRepository = $adminRepository;
+        $this->adminRoleRepository=$adminRoleRepository;
     }
 
     public function getUsers(){
@@ -30,29 +34,75 @@ class AdminServiceImpl extends FileUploadHelper implements  AdminService {
         return $this->adminRepository->findActiveUsers();
     }
 
-    public function getUser($id){
-
+    public function getAdminById($id){
+        return $this->adminRepository->findAdminById($id);
     }
 
-    public function saveUser($request){
+    public function saveAdmin($request){
+        $admin = new Admin();
+        $admin->setFirstName($request->get('first-name'));
+        $admin->setLastName($request->get('last-name'));
+        $admin->setEmail($request->get('email'));
+        $admin->setPassword(bcrypt($request->get('cpassword')));
+        $admin->setContactNumber($request->get('contact'));
+        $admin->setIsActive(1);
+        $admin->setCreatedAt(new \DateTime());
+        $admin->setUpdatedAt(new \DateTime());
+        $profilePic=$this->uploadFile($request,'profile-pic');
+        if($profilePic){
+            $admin->setProfileImage($profilePic);
+        }
 
+        if(null==($request->get('isAdmin'))) {
+            $admin->setIsSuperUser(0);
+            $adminRole= new AdminRole();
+            $adminRole->setRoleId($this->adminRoleRepository->findActiveAdminRoleById($request->get('role')));
+            $adminRole->setCreatedAt(new \DateTime());
+            $adminRole->setUpdatedAt(new \DateTime());
+            $adminRole->setIsActive(1);
+
+            $admin->addAdminRole($adminRole);
+
+            $admin->addAdminRole($adminRole);
+        }else{
+            $admin->setIsSuperUser($request->get('isAdmin'));
+        }
+        return $this->adminRepository->saveOrUpdateAdmin($admin);
     }
 
-    public function updateUser($request, $id){
-        $user = $this->adminRepository->findUser($id);
-        $user->setFirstName($request->get('first-name'));
-        $user->setLastName($request->get('last-name'));
-        $user->setEmail($request->get('email'));
+    public function updateAdmin($request, $id){
+        $admin = $this->adminRepository->findAdminById($id);
+        $admin->setFirstName($request->get('first-name'));
+        $admin->setLastName($request->get('last-name'));
+        $admin->setEmail($request->get('email'));
         $profilePic = $this->uploadFile($request, 'profile-pic');
         if($profilePic){
-            $user->setProfileImage($profilePic);
+            $admin->setProfileImage($profilePic);
         }
-        return $this->adminRepository->saveOrUpdateUser($user);
+
+        dd($request->all());
+//        $admin_roles=$this->adminRoleRepository->findExistingAdminRole($id);
+//        dd($admin_roles[0]->getAdmin());
+//        if(null==($request->get('isAdmin'))) {
+//            $admin->setIsSuperUser(0);
+//            $adminRole= new AdminRole();
+//            $adminRole->setRoleId($this->adminRoleRepository->findActiveAdminRoleById($request->get('role')));
+//            $adminRole->setCreatedAt(new \DateTime());
+//            $adminRole->setUpdatedAt(new \DateTime());
+//            $adminRole->setIsActive(1);
+//
+//            $admin->addAdminRole($adminRole);
+//
+//            $admin->addAdminRole($adminRole);
+//        }else{
+//            $admin->setIsSuperUser($request->get('isAdmin'));
+//        }
+        return $this->adminRepository->saveOrUpdateAdmin($admin);
     }
 
     public function updatePassword($request, $id){
-        $user = $this->adminRepository->findUser($id);
+        $user = $this->adminRepository->findAdminById($id);
         $user->setPassword(Hash::make($request->get('new-password')));
-        return $this->adminRepository->saveOrUpdateUser($user);
+        return $this->adminRepository->saveOrUpdateAdmin($user);
     }
 }

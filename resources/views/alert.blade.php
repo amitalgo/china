@@ -1,9 +1,3 @@
-@if(session()->has('message'))
-    <div class="alert {{session('class')}}">
-        {{session('message')}}
-    </div>
-@endif
-
 @if (session()->has('success-msg'))
     <div class="alert alert-success alertify s">
         {{ session('success-msg') }}
@@ -25,3 +19,5 @@
         </ul>
     </div>
 @endif
+
+

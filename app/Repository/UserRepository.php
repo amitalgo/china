@@ -9,12 +9,14 @@
 namespace App\Repository;
 
 
-interface AdminRepository{
+interface UserRepository{
     public function findUsers();
 
     public function findActiveUsers();
 
-    public function findAdminById($id);
+    public function findUser($id);
 
-    public function saveOrUpdateAdmin($data);
+    public function findUserBy($criteria);
+
+    public function saveOrUpdateUser($data);
 }

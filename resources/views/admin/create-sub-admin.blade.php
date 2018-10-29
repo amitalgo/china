@@ -18,6 +18,7 @@
     <!-- End Bread crumb-->
     <!-- Container fluid  -->
     <div class="container-fluid">
+    @include('admin.includes.alert')
         <!-- Start Page Content -->
         <div class="row">
             <div class="col-md-12">
@@ -29,28 +30,32 @@
                         </h4>
                         <div class="card-body">
                             <div class="form-validation">
-                                <form class="form-valide" action="{{route('sub-admin.store')}}" method="post" enctype="multipart/form-data">
+                                <form class="form-valide" action="@if(isset($admin)) {{route('sub-admin.update',['admins' => $admin->getId()] )}} @else{{route('sub-admin.store')}} @endif" method="post" enctype="multipart/form-data">
                                     @csrf
+                                    @if(isset($admin))
+                                        <input type="hidden" name="_method" value="PUT">
+                                    @endif
                                     <div class="col-md-12">
                                         <div class="col-md-8 float-left">
                                             <div class="form-group row">
                                                 <label class="col-lg-4 col-form-label" for="first-name">First Name<span class="text-danger">*</span></label>
                                                 <div class="col-lg-6">
-                                                    <input type="text" class="form-control" id="first-name" name="first-name" placeholder="Enter First Name" >
+                                                    <input type="text" class="form-control" id="first-name" name="first-name" placeholder="Enter First Name" value="@if(isset($admin)){{$admin->getFirstName()}} @endif">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-lg-4 col-form-label" for="last-name">Last Name</label>
                                                 <div class="col-lg-6">
-                                                    <input type="text" class="form-control" id="last-name" name="last-name" placeholder="Enter Last Name">
+                                                    <input type="text" class="form-control" id="last-name" name="last-name" placeholder="Enter Last Name" value="@if(isset($admin)){{$admin->getLastName()}} @endif">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-lg-4 col-form-label" for="email">Email<span class="text-danger">*</span></label>
                                                 <div class="col-lg-6">
-                                                    <input type="text" class="form-control" id="email" name="email" placeholder="Enter Email Id" >
+                                                    <input type="text" class="form-control" id="email" name="email" placeholder="Enter Email Id" value="@if(isset($admin)){{$admin->getEmail()}} @endif">
                                                 </div>
                                             </div>
+                                            @if(!isset($admin))
                                             <div class="form-group row">
                                                 <label class="col-lg-4 col-form-label" for="password">Password<span class="text-danger">*</span></label>
                                                 <div class="col-lg-6">
@@ -63,20 +68,11 @@
                                                     <input type="text" class="form-control" id="cpassword" name="cpassword" placeholder="Confirm Password" >
                                                 </div>
                                             </div>
+                                            @endif
                                             <div class="form-group row">
                                                 <label class="col-lg-4 col-form-label" for="contact">Contact No<span class="text-danger">*</span></label>
                                                 <div class="col-lg-6">
-                                                    <input type="text" class="form-control" id="contact" name="contact" placeholder="" >
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="contact">Role<span class="text-danger">*</span></label>
-                                                <div class="col-lg-6">
-                                                    <select class="form-control" name="role" id="role">
-                                                        @foreach($roles as $role)
-                                                        <option value="{{ $role->getId() }}">{{ $role->getRole() }}</option>
-                                                        @endforeach
-                                                    </select>
+                                                    <input type="text" class="form-control" value="@if(isset($admin)){{$admin->getContactNumber()}} @endif" id="contact" name="contact" placeholder="" >
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -85,9 +81,44 @@
                                                     <input type="file" class="form-control" id="profile-pic" name="profile-pic" placeholder="">
                                                 </div>
                                             </div>
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 col-form-label" for="isAdmin">Is Admin</label>
+                                                <div class="col-md-4">
+                                                    <div class="col-md-12">
+                                                        <div class="checkbox checkbox-success">
+                                                            <input type="checkbox" name="isAdmin" id="isAdmin"  @if(isset($admin) && (null!=(($admin->getisSuperUser())))) checked="true"@endif >
+
+                                                            {{--<label for="isAdmin"> Is Admin </label>--}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 col-form-label" for="contact">Role<span class="text-danger">*</span></label>
+                                                <div class="col-lg-6">
+                                                    <select class="form-control" name="role" id="role">
+                                                        <option value="">Choose Role</option>
+                                                        @foreach($roles as $role)
+                                                        <option value="{{ $role->getId() }}"
+                                                                @if(isset($admin))
+                                                                @foreach($admin->getAdminRole() as $roleSelected)
+                                                                @if(null!=$roleSelected->getRoleId())
+                                                                @if($role->getId()==$roleSelected->getRoleId()->getId()) selected="selected" @else  @endif
+                                                                @endif
+                                                                @endforeach
+                                                                @endif
+                                                        >{{ $role->getRole() }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="col-md-4 float-left">
-                                            <img src="  " id="image-preview" />
+                                            @if(isset($admin))
+                                               <img src="{{$admin->getProfileImage()}}" id="image-preview" />
+                                            @else
+                                               <img src="#" id="image-preview" />
+                                             @endif
                                         </div>
                                     </div>
                                     <div class="col-md-12 form-group row">

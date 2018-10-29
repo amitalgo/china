@@ -7,6 +7,28 @@
         <link href="{{asset('css/helper.css')}}" rel="stylesheet">
         <link href="{{asset('css/style.css')}}" rel="stylesheet">
 
+        <style>
+            .alertify{
+                position: fixed;
+                z-index: 99999;
+                right: 22px;
+                top: 62px;
+                min-width: 200px;
+                text-align: center;
+                color:#fee;
+            }
+            .r{
+                background-color: #f05050 !important;
+                border: 1px solid #f05050 !important;
+            }
+            .s{
+                background-color: #5fbeaa !important;
+                border: 1px solid #5fbeaa !important;
+            }
+        </style>
+
+
+
         @stack('styles')
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:** -->

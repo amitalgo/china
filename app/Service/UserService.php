@@ -9,18 +9,22 @@
 namespace App\Service;
 
 
-interface AdminService{
+interface UserService{
 
     public function getUsers();
 
     public function getActiveUsers();
 
-    public function getAdminById($id);
+    public function getUser($id);
 
-    public function saveAdmin($request);
+    public function getUserBy($criteria);
 
-    public function updateAdmin($request, $id);
+    public function saveUser($request);
+
+    public function updateUser($request, $id);
 
     public function updatePassword($request, $id);
+
+    public function updateProfilePicture($request, $id);
 
 }

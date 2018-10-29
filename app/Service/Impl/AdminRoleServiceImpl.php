@@ -16,9 +16,4 @@ class AdminRoleServiceImpl extends FileUploadHelper implements  AdminRoleService
         $this->adminRoleRepository=$adminRoleRepository;
     }
 
-    public function getActiveAdminRoles()
-    {
-        return $this->adminRoleRepository->getActiveAdminRoles();
-    }
-
 }

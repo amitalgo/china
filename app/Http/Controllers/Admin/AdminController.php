@@ -3,19 +3,22 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Service\AdminRoleService;
+use App\Service\RoleService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Service\AdminService;
+use Validator;
 
 class AdminController extends Controller
 {
 
-    private $adminService,$adminRoleService;
+    private $adminService,$adminRoleService,$roleService;
 
-    public function __construct(AdminService $adminService, AdminRoleService $adminRoleService){
+    public function __construct(AdminService $adminService, AdminRoleService $adminRoleService,RoleService $roleService){
         $this->adminService = $adminService;
         $this->adminRoleService = $adminRoleService;
+        $this->roleService=$roleService;
     }
 
     /**
@@ -37,7 +40,7 @@ class AdminController extends Controller
     public function accountUpdate(Request $request){
         $admin = Auth::user();
         $id = $admin->getId();
-        $result = $this->adminService->updateUser($request, $id);
+        $result = $this->adminService->updateAdmin( $request, $id);
         return $this->redirect('admin.account', $result, 'Account updated successfully');
     }
 
@@ -59,7 +62,7 @@ class AdminController extends Controller
      */
     public function create()
     {
-        $roles = $this->adminRoleService->getActiveAdminRoles();
+        $roles = $this->roleService->getActiveRoles();
         return view('admin.create-sub-admin',compact('roles'));
     }
 
@@ -72,14 +75,20 @@ class AdminController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            "title" =>"required",
-            "bannerimage-title" =>"required",
-            "description" =>"required",
-            "image" =>"required",
-            "banner_image_description" =>"required",
+            "first-name" =>"required",
+            "email" =>"required",
+            "password" =>"required",
+            "cpassword" =>"required",
+            "contact" =>"required"
         ]);
 
-        $result  = $this->landingBannerService->saveData($request);
+        $result  = $this->adminService->saveAdmin($request);
+        if($result){
+//            return $this->redirect('sub-admin.create',$result,'Sub-Admin Added SuccessFully');
+            return redirect()->route('sub-admin.create')->with('success-msg','Admin Added SuccessFully');
+        }else{
+            return redirect()->route('sub-admin.create')->with('error-msg','Something Went Wrong');
+        }
     }
 
     /**
@@ -101,7 +110,9 @@ class AdminController extends Controller
      */
     public function edit($id)
     {
-        //
+        $admin = $this->adminService->getAdminById($id);
+        $roles = $this->roleService->getActiveRoles();
+        return view('admin.create-sub-admin',compact('roles','admin'));
     }
 
     /**
@@ -113,7 +124,18 @@ class AdminController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Validator::make($request->all(),[
+            "first-name" =>"required",
+            "email" =>"required",
+            "contact" =>"required"
+        ]);
+
+        $result = $this->adminService->updateAdmin($request,$id);
+        if($result){
+            return redirect()->route('sub-admin.index')->with('success-msg','Admin Updated SuccessFully');
+        }else{
+            return redirect()->route('sub-admin.index')->with('error-msg','Something Went Wrong');
+        }
     }
 
     /**

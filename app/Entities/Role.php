@@ -129,6 +129,23 @@ class Role
     }
 
     /**
+     * @return mixed
+     */
+    public function getAdminRole()
+    {
+        return $this->adminRole;
+    }
+
+    /**
+     * @param mixed $adminRole
+     */
+    public function setAdminRole($adminRole): void
+    {
+        $this->adminRole = $adminRole;
+    }
+
+
+    /**
      * Gets triggered only on insert
 
      * @ORM\PrePersist

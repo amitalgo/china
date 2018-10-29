@@ -9,6 +9,7 @@
 
 namespace  App\Entities;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Illuminate\Contracts\Auth\Authenticatable;
 
@@ -66,7 +67,7 @@ class Admin implements Authenticatable
 
     /**
      * @var string
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean",options={"default" : 1})
      */
     private $isSuperUser;
 
@@ -78,28 +79,29 @@ class Admin implements Authenticatable
 
     /**
      * @var string
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean",options={"default" : 1})
      */
     private $isActive;
 
     /**
-     * @var datetime $createdAt
-     *
      * @ORM\Column(type="datetime")
      */
-    protected $createdAt;
+    private $createdAt;
 
     /**
-     * @var datetime $updatedAt
-     *
-     * @ORM\Column(type="datetime", nullable = true)
+     * @ORM\Column(type="datetime")
      */
-    protected $updatedAt;
+    private $updatedAt;
 
     /**
      * @ORM\OneToMany(targetEntity="AdminRole", fetch="EAGER",mappedBy="adminId",cascade={"persist"})
      */
     private $adminRole;
+
+    public function __construct()
+    {
+        $this->adminRole = new ArrayCollection();
+    }
 
     /**
      * @return int
@@ -262,24 +264,53 @@ class Admin implements Authenticatable
     }
 
     /**
-     * Gets triggered only on insert
-
-     * @ORM\PrePersist
+     * @return datetime
      */
-    public function onPrePersist()
+    public function getCreatedAt()
     {
-        $this->createdAt = new \DateTime("now");
+        return $this->createdAt;
     }
 
     /**
-     * Gets triggered every time on update
-
-     * @ORM\PreUpdate
+     * @param datetime $createdAt
      */
-    public function onPreUpdate()
+    public function setCreatedAt($createdAt)
     {
-        $this->updatedAt = new \DateTime("now");
+        $this->createdAt = $createdAt;
     }
+
+    /**
+     * @return datetime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param datetime $updatedAt
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAdminRole()
+    {
+        return $this->adminRole;
+    }
+
+    /**
+     * @param mixed $adminRole
+     */
+    public function setAdminRole($adminRole): void
+    {
+        $this->adminRole = $adminRole;
+    }
+
 
     /**
      * Get the name of the unique identifier for the user.
@@ -322,5 +353,11 @@ class Admin implements Authenticatable
     public function getRememberTokenName()
     {
         // TODO: Implement getRememberTokenName() method.
+    }
+
+    public function addAdminRole(AdminRole $adminRoles)
+    {
+        $adminRoles->setAdminId($this);
+        $this->adminRole->add($adminRoles);
     }
 }
