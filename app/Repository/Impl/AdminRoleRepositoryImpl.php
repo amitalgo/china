@@ -7,14 +7,14 @@ use Doctrine\ORM\EntityRepository;
 class AdminRoleRepositoryImpl extends EntityRepository implements AdminRoleRepository{
 
     public function findActiveAdminRoleById($id){
-        return $this->find($id);
-    }
+    dd($this->find($id));
+}
 
     public function deleteExistingAdminRole($id){
         $adminRoles = $this->findBy(['adminId'=>$id]);
         foreach($adminRoles as $adminRole){
-            $this->remove($adminRole);
+            $this->_em->remove($adminRole);
         }
-
+        $this->_em->flush();
     }
 }

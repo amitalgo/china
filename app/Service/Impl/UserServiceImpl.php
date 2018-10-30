@@ -34,7 +34,7 @@ class UserServiceImpl extends FileUploadHelper implements  UserService {
     }
 
     public function getActiveUsers(){
-
+        return $this->userRepository->findActiveUsers();
     }
 
     public function getUser($id){

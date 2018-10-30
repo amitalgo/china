@@ -14,16 +14,18 @@ use App\Entities\AdminRole;
 use App\Helper\FileUploadHelper;
 use App\Repository\AdminRepository;
 use App\Repository\AdminRoleRepository;
+use App\Repository\RoleRepository;
 use App\Service\AdminService;
 use Illuminate\Support\Facades\Hash;
 
 class AdminServiceImpl extends FileUploadHelper implements  AdminService {
 
-    private $adminRepository,$adminRoleRepository;
+    private $adminRepository,$adminRoleRepository,$roleRepository;
 
-    public function __construct(AdminRepository $adminRepository,AdminRoleRepository $adminRoleRepository){
+    public function __construct(AdminRepository $adminRepository,AdminRoleRepository $adminRoleRepository,RoleRepository $roleRepository){
         $this->adminRepository = $adminRepository;
         $this->adminRoleRepository=$adminRoleRepository;
+        $this->roleRepository=$roleRepository;
     }
 
     public function getUsers(){
@@ -56,7 +58,7 @@ class AdminServiceImpl extends FileUploadHelper implements  AdminService {
         if(null==($request->get('isAdmin'))) {
             $admin->setIsSuperUser(0);
             $adminRole= new AdminRole();
-            $adminRole->setRoleId($this->adminRoleRepository->findActiveAdminRoleById($request->get('role')));
+            $adminRole->setRoleId($this->roleRepository->findActiveRoleById($request->get('role')));
             $adminRole->setCreatedAt(new \DateTime());
             $adminRole->setUpdatedAt(new \DateTime());
             $adminRole->setIsActive(1);
@@ -81,22 +83,19 @@ class AdminServiceImpl extends FileUploadHelper implements  AdminService {
         }
 
         $admin_roles=$this->adminRoleRepository->deleteExistingAdminRole($id);
-        dd($admin_roles);
-//        dd($admin_roles[0]->getAdmin());
-//        if(null==($request->get('isAdmin'))) {
-//            $admin->setIsSuperUser(0);
-//            $adminRole= new AdminRole();
-//            $adminRole->setRoleId($this->adminRoleRepository->findActiveAdminRoleById($request->get('role')));
-//            $adminRole->setCreatedAt(new \DateTime());
-//            $adminRole->setUpdatedAt(new \DateTime());
-//            $adminRole->setIsActive(1);
-//
-//            $admin->addAdminRole($adminRole);
-//
-//            $admin->addAdminRole($adminRole);
-//        }else{
-//            $admin->setIsSuperUser($request->get('isAdmin'));
-//        }
+        if(null==($request->get('isAdmin'))) {
+            $admin->setIsSuperUser(0);
+            $adminRole= new AdminRole();
+            $adminRole->setRoleId($this->roleRepository->findActiveRoleById($request->get('role')));
+            $adminRole->setCreatedAt(new \DateTime());
+            $adminRole->setUpdatedAt(new \DateTime());
+            $adminRole->setIsActive(1);
+
+            $admin->addAdminRole($adminRole);
+            $admin->addAdminRole($adminRole);
+        }else{
+            $admin->setIsSuperUser($request->get('isAdmin'));
+        }
         return $this->adminRepository->saveOrUpdateAdmin($admin);
     }
 

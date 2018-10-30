@@ -12,7 +12,7 @@ namespace  App\Entities;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class Admin
+ * Class Role
  * @ORM\Entity
  * @ORM\Table(name="roles")
  */
@@ -46,18 +46,14 @@ class Role
     private $isActive;
 
     /**
-     * @var datetime $createdAt
-     *
      * @ORM\Column(type="datetime")
      */
-    protected $createdAt;
+    private $createdAt;
 
     /**
-     * @var datetime $updatedAt
-     *
-     * @ORM\Column(type="datetime", nullable = true)
+     * @ORM\Column(type="datetime")
      */
-    protected $updatedAt;
+    private $updatedAt;
 
     /**
      * @ORM\OneToMany(targetEntity="AdminRole", fetch="EAGER",mappedBy="roleId",cascade={"persist"})
@@ -83,7 +79,7 @@ class Role
     /**
      * @return string
      */
-    public function getRole(): string
+    public function getRole()
     {
         return $this->role;
     }
@@ -91,7 +87,7 @@ class Role
     /**
      * @param string $role
      */
-    public function setRole(string $role): void
+    public function setRole(string $role)
     {
         $this->role = $role;
     }
@@ -144,24 +140,20 @@ class Role
         $this->adminRole = $adminRole;
     }
 
-
     /**
-     * Gets triggered only on insert
-
-     * @ORM\PrePersist
+     * @return mixed
      */
-    public function onPrePersist()
+    public function getCreatedAt()
     {
-        $this->createdAt = new \DateTime("now");
+        return $this->createdAt;
     }
 
     /**
-     * Gets triggered every time on update
-
-     * @ORM\PreUpdate
+     * @return mixed
      */
-    public function onPreUpdate()
+    public function getUpdatedAt()
     {
-        $this->updatedAt = new \DateTime("now");
+        return $this->updatedAt;
     }
+
 }

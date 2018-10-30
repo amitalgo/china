@@ -41,5 +41,15 @@ Route::group(['prefix'=>'admin'], function (){
         // SubAdmin
         Route::resource('/sub-admin','Admin\AdminController');
 
+        // Role
+        Route::resource('/role','Admin\RoleController');
+
+        // Job Posted
+        Route::resource('/jobposted','Admin\JobPostedController');
+
+        // Job Applicant
+        Route::resource('/jobapplicants','Admin\JobAppliedController');
+        Route::get('/jobapplicants/{jobid}','Admin\JobAppliedController@filterApplicants')->name('admin.filter.applicants');
+
     });
 });

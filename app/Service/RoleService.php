@@ -13,4 +13,10 @@ interface RoleService{
 
     public function getActiveRoles();
 
+    public function getActiveRoleById($id);
+
+    public function updateRole($request,$id);
+
+    public function saveRole($request);
+
 }

@@ -11,5 +11,9 @@ namespace App\Repository;
 
 interface RoleRepository{
 
+    public function findActiveRoleById($id);
+
     public function getActiveRoles();
+
+    public function saveOrUpdateRole($data);
 }

@@ -90,7 +90,7 @@ class JobApplied
     /**
      * @return string
      */
-    public function getJobPostedId(): string
+    public function getJobPostedId()
     {
         return $this->jobPostedId;
     }
@@ -98,7 +98,7 @@ class JobApplied
     /**
      * @param string $jobPostedId
      */
-    public function setJobPostedId(string $jobPostedId): void
+    public function setJobPostedId($jobPostedId)
     {
         $this->jobPostedId = $jobPostedId;
     }
@@ -149,6 +149,22 @@ class JobApplied
     public function setRemarks(string $remarks): void
     {
         $this->remarks = $remarks;
+    }
+
+    /**
+     * @return string
+     */
+    public function getisActive(): string
+    {
+        return $this->isActive;
+    }
+
+    /**
+     * @param string $isActive
+     */
+    public function setIsActive(string $isActive): void
+    {
+        $this->isActive = $isActive;
     }
 
     /**

@@ -58,13 +58,13 @@
                                 </a>
                             </li>
                             <li class="item2" id="layout_3" role="presentation">
-                                <a href="#" aria-expanded="false">
+                                <a href="{{ url('admin/jobposted') }}" aria-expanded="false">
                                     <i class="icon-item2 fa fa-suitcase"></i>
                                     <span>Jobs</span>
                                 </a>
                             </li>
                             <li class="item2" id="layout_3" role="presentation">
-                                <a href="#" aria-expanded="false">
+                                <a href="{{ url('admin/jobapplicants') }}" aria-expanded="false">
                                     <i class="icon-item2 fa fa-tasks"></i>
                                     <span>Job Applications</span>
                                 </a>
@@ -112,7 +112,7 @@
                             </li>
                             <li class="nav-label">Manage Admin</li>
                             <li class="item2" id="layout_3" role="presentation">
-                                <a href="#" aria-expanded="false">
+                                <a href="{{ url('admin/role') }}" aria-expanded="false">
                                     <i class="icon-item2 fa fa-cogs"></i>
                                     <span>Roles</span>
                                 </a>

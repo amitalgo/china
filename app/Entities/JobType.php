@@ -54,7 +54,7 @@ class JobType
     protected $updatedAt;
 
     /**
-     * @ORM\OneToMany(targetEntity="JobPosted", fetch="EAGER",mappedBy="jobType",cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="JobPosted", fetch="EAGER",mappedBy="jobTypeId",cascade={"persist"})
      */
     private $JobPosted;
 
