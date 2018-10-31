@@ -18,4 +18,6 @@ interface JobPostedService{
     public function getJobPostedById($id);
 
     public function updateJob($request,$id);
+
+    public function approveordisapprovejob($request);
 }

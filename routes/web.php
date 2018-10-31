@@ -46,10 +46,15 @@ Route::group(['prefix'=>'admin'], function (){
 
         // Job Posted
         Route::resource('/jobposted','Admin\JobPostedController');
+        Route::post('/jobposted/approveordisapprovejob','Admin\JobPostedController@approveJob');
 
         // Job Applicant
         Route::resource('/jobapplicants','Admin\JobAppliedController');
-        Route::get('/jobapplicants/{jobid}','Admin\JobAppliedController@filterApplicants')->name('admin.filter.applicants');
+        Route::post('/jobapplied/approveordisapprovejob','Admin\JobAppliedController@approveJobApplicants');
+        Route::get('/jobapplicants/filter/{jobid}/','Admin\JobAppliedController@filterApplicants')->name('jobposted.filterapplicants');
+
+        // Word
+        Route::resource('/word','Admin\WordController');
 
     });
 });

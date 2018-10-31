@@ -24,4 +24,16 @@ class JobAppliedServiceImpl implements JobAppliedService
     public function getAllJobApplicants(){
         return $this->jobAppliedRepository->findAllJobApplicants();
     }
+
+    public function getJobApplicantsByJobPosted($id){
+        return $this->jobAppliedRepository->findJobApplicantsByJobPosted($id);
+    }
+
+    public function approveOrDisapproveJob($request){
+        $job= $this->jobAppliedRepository->findJobApplicantsById($request->get('jobappliedid'));
+        $isActive= (null==$request->get('isActive') || empty($request->get('isActive')))?1:0;
+        $job->setisActive($isActive);
+
+        return $this->jobAppliedRepository->saveOrUpdateJobApplicants($job);
+    }
 }

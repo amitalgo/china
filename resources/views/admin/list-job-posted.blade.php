@@ -44,6 +44,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+                                <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
                                     @foreach($jobPosts as $jobPost)
                                         <tr>
                                         <td>{{ $jobPost->getId() }}</td>
@@ -54,8 +55,8 @@
                                         <td>{{ $jobPost->getUserId()->getFirstName() }}</td>
                                         <td> @if($jobPost->getisClosed()) {{ 'Closed' }} @else {{ 'Open' }} @endif</td>
                                         <td>
-                                            <a href="{{ route('jobposted.edit',['jobpost'=>$jobPost->getId()]) }}" class="btn btn-icon waves-effect waves-light btn-white" style=" {{ $jobPost->getisActive() ? 'color:green' : '' }}"><i class="fa fa-check"></i></a>
-                                            <a href="{{ route('admin.filter.applicants',['jobid'=>$jobPost->getId()]) }}" class="btn btn-icon waves-effect waves-light btn-white"><i class="fa fa-eye"></i></a>
+                                            <input type="checkbox" data-isactive="{{ $jobPost->getisActive() }}" data-jobid="{{ $jobPost->getId() }}" class="approveJobPosted" @if($jobPost->getisActive()) {{ 'checked' }} @else {{ '' }} @endif data-toggle="toggle" data-on="Approved" data-off="Pending" data-offstyle="danger" data-onstyle="info" data-size="mini">
+                                            <a href="{{ route('jobposted.filterapplicants',['jobid'=>$jobPost->getId()]) }}" class="btn btn-icon waves-effect waves-light btn-white"><i class="fa fa-eye"></i></a>
                                             <a href="{{ route('jobposted.edit',['jobpost'=>$jobPost->getId()]) }}" class="btn btn-icon waves-effect waves-light btn-white"><i class="fa fa-edit"></i></a>
                                         </td>
                                         </tr>
@@ -73,10 +74,11 @@
     <!-- End Container fluid  -->
 @endsection
 @push('scripts')
-    <script type="text/javascript" src="{{asset('js/subadmin.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/jobposted.js')}}"></script>
     <script type="text/javascript">
-        $('document').ready(function () {
-            SubAdmin.initControls();
+        $('document').ready(function() {
+            var csrf="{{ csrf_token() }}";
+            JobPosted.initControls(csrf);
         });
     </script>
 @endpush

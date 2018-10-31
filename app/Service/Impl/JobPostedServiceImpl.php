@@ -69,4 +69,11 @@ class JobPostedServiceImpl extends FileUploadHelper implements JobPostedService
 
         return $this->jobPostedRepository->saveOrUpdateJob($job);
     }
+
+    public function approveordisapprovejob($request){
+        $job= $this->jobPostedRepository->findJobPostedById($request->get('jobId'));
+        $isActive= (null==$request->get('isActive'))?1:0;
+        $job->setisActive($isActive);
+        return $this->jobPostedRepository->saveOrUpdateJob($job);
+    }
 }

@@ -46,8 +46,9 @@
                                         <td>{{ $jobApplicant->getUserId()->getEmail() }}</td>
                                         <td>{{ $jobApplicant->getUserId()->getContactNumber() }}</td>
                                         <td>
-                                            <a href="{{ route('jobapplicants.edit',['jobapplicants'=>$jobApplicant->getId()]) }}" class="btn btn-icon waves-effect waves-light btn-white" style=" {{ $jobApplicant->getisActive() ? 'color:green' : '' }}"><i class="fa fa-check"></i></a>
-                                            <a href="{{ route('jobapplicants.edit',['jobapplicants'=>$jobApplicant->getId()]) }}" class="btn btn-icon waves-effect waves-light btn-white"><i class="fa fa-eye"></i></a>
+                                            {{--<a href="{{ route('jobapplicants.edit',['jobapplicants'=>$jobApplicant->getId()]) }}" class="btn btn-icon waves-effect waves-light btn-white" style=" {{ $jobApplicant->getisActive() ? 'color:green' : '' }}"><i class="fa fa-check"></i></a>--}}
+                                            <input type="checkbox" data-isactive="{{ $jobApplicant->getisActive() }}" data-jobappliedid="{{ $jobApplicant->getId() }}" class="approveJobApplied" @if($jobApplicant->getisActive()) {{ 'checked' }} @else {{ '' }} @endif data-toggle="toggle" data-on="Approved" data-off="Pending" data-offstyle="danger" data-onstyle="info" data-size="mini">
+                                            {{--<a href="{{ route('jobapplicants.edit',['jobapplicants'=>$jobApplicant->getId()]) }}" class="btn btn-icon waves-effect waves-light btn-white"><i class="fa fa-eye"></i></a>--}}
                                         </td>
                                     @endforeach
                                 </tbody>
@@ -63,10 +64,11 @@
     <!-- End Container fluid  -->
 @endsection
 @push('scripts')
-    <script type="text/javascript" src="{{asset('js/subadmin.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/jobapplied.js')}}"></script>
     <script type="text/javascript">
         $('document').ready(function () {
-            SubAdmin.initControls();
+            var csrf="{{ csrf_token() }}";
+            JobApplied.initControls(csrf);
         });
     </script>
 @endpush

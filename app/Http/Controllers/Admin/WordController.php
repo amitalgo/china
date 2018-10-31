@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Service\JobAppliedService;
+use App\Service\WordService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class JobAppliedController extends Controller
+class WordController extends Controller
 {
-    private $jobAppliedService;
+    private $wordService;
 
-    public function __construct(JobAppliedService $jobAppliedService)
+    public function __construct(WordService $wordService)
     {
-        $this->jobAppliedService=$jobAppliedService;
+        $this->wordService=$wordService;
     }
 
     /**
@@ -22,8 +22,8 @@ class JobAppliedController extends Controller
      */
     public function index()
     {
-        $jobApplicants=$this->jobAppliedService->getAllJobApplicants();
-        return view('admin.list-job-applicants',compact('jobApplicants'));
+        $words=$this->wordService->getAllWords();
+        return view('admin.list-words',compact('words'));
     }
 
     /**
@@ -33,7 +33,7 @@ class JobAppliedController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.words');
     }
 
     /**
@@ -90,19 +90,5 @@ class JobAppliedController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function filterApplicants($id){
-        $jobApplicants=$this->jobAppliedService->getJobApplicantsByJobPosted($id);
-        return view('admin.list-job-applicants',compact('jobApplicants'));
-    }
-
-    public function approveJobApplicants(Request $request){
-        $approveordisapprovejobapplicants= $this->jobAppliedService->approveOrDisapproveJob($request);
-        if($approveordisapprovejobapplicants){
-            return 1;
-        }else{
-            return 'Something Went Wrong';
-        }
     }
 }

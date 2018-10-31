@@ -15,10 +15,6 @@ class RoleRepositoryImpl extends EntityRepository implements RoleRepository {
         return $this->find($id);
     }
 
-    public function findExistingAdminRole($id){
-        dd($this->findBy(['id'=>2])[0]->getAdminId());
-    }
-
     public function saveOrUpdateRole($data){
         try{
             $this->_em->persist($data);

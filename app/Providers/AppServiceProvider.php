@@ -11,6 +11,7 @@ use App\Entities\Page;
 use App\Entities\Role;
 use App\Entities\User;
 use App\Entities\UserRole;
+use App\Entities\Word;
 use App\Repository\AdminRoleRepository;
 use App\Repository\Impl\AdminRoleRepositoryImpl;
 use App\Repository\Impl\JobAppliedRepositoryImpl;
@@ -21,6 +22,7 @@ use App\Repository\Impl\AdminRepositoryImpl;
 use App\Repository\Impl\RoleRepositoryImpl;
 use App\Repository\Impl\UserRepositoryImpl;
 use App\Repository\Impl\UserRoleRepositoryImpl;
+use App\Repository\Impl\WordRepositoryImpl;
 use App\Repository\JobAppliedRepository;
 use App\Repository\JobPostedRepository;
 use App\Repository\JobTypeRepository;
@@ -29,6 +31,7 @@ use App\Repository\AdminRepository;
 use App\Repository\RoleRepository;
 use App\Repository\UserRepository;
 use App\Repository\UserRoleRepository;
+use App\Repository\WordRepository;
 use App\Service\AdminRoleService;
 use App\Service\Impl\AdminRoleServiceImpl;
 use App\Service\Impl\JobAppliedServiceImpl;
@@ -38,6 +41,7 @@ use App\Service\Impl\PageServiceImpl;
 use App\Service\Impl\AdminServiceImpl;
 use App\Service\Impl\RoleServiceImpl;
 use App\Service\Impl\UserServiceImpl;
+use App\Service\Impl\WordServiceImpl;
 use App\Service\JobAppliedService;
 use App\Service\JobPostedService;
 use App\Service\JobTypeService;
@@ -45,6 +49,7 @@ use App\Service\PageService;
 use App\Service\AdminService;
 use App\Service\RoleService;
 use App\Service\UserService;
+use App\Service\WordService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
@@ -81,6 +86,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(JobPostedService::class,JobPostedServiceImpl::class);
         $this->app->bind(JobTypeService::class,JobTypeServiceImpl::class);
         $this->app->bind(JobAppliedService::class,JobAppliedServiceImpl::class);
+        $this->app->bind(WordService::class,WordServiceImpl::class);
         /*
          * Repository Binding
          */
@@ -143,6 +149,13 @@ class AppServiceProvider extends ServiceProvider
             return new JobAppliedRepositoryImpl(
                 $app['em'],
                 $app['em']->getClassMetaData(JobApplied::class)
+            );
+        });
+
+        $this->app->bind(WordRepository::class, function ($app){
+            return new WordRepositoryImpl(
+                $app['em'],
+                $app['em']->getClassMetaData(Word::class)
             );
         });
     }

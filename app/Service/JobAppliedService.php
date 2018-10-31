@@ -12,4 +12,8 @@ namespace App\Service;
 interface JobAppliedService
 {
     public function getAllJobApplicants();
+
+    public function getJobApplicantsByJobPosted($id);
+
+    public function approveOrDisapproveJob($request);
 }

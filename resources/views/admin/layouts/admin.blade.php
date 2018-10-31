@@ -6,6 +6,7 @@
         <!-- Custom CSS -->
         <link href="{{asset('css/helper.css')}}" rel="stylesheet">
         <link href="{{asset('css/style.css')}}" rel="stylesheet">
+        <link href="{{ asset('css/bootstrap-toggle.css') }}" rel="stylesheet">
 
         <style>
             .alertify{
@@ -25,6 +26,7 @@
                 background-color: #5fbeaa !important;
                 border: 1px solid #5fbeaa !important;
             }
+           .top-pdn{ margin-top: 15px;}
         </style>
 
 
@@ -86,7 +88,7 @@
                             </li>
                             <li class="nav-label">Dictionary</li>
                             <li class="item2" id="layout_3" role="presentation">
-                                <a href="#" aria-expanded="false">
+                                <a href="{{ url('admin/word') }}" aria-expanded="false">
                                     <i class="icon-item2 fa fa-globe"></i>
                                     <span>Words</span>
                                 </a>
@@ -143,6 +145,7 @@
         <!-- Bootstrap tether Core JavaScript -->
         <script src="{{asset('js/lib/bootstrap/js/popper.min.js')}}"></script>
         <script src="{{asset('js/lib/bootstrap/js/bootstrap.min.js')}}"></script>
+        <script src="{{ asset('js/bootstrap-toggle.js') }}"></script>
         <!-- slimscrollbar scrollbar JavaScript -->
         <script src="{{asset('js/jquery.slimscroll.js')}}"></script>
         <!--Menu sidebar -->

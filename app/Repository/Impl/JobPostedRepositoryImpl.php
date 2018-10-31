@@ -13,8 +13,8 @@ class JobPostedRepositoryImpl extends EntityRepository implements JobPostedRepos
             $this->_em->flush();
             return true;
         }catch (\Exception $e){
-//            return false;
-            dd($e);
+            return false;
+//            dd($e);
         }
     }
 

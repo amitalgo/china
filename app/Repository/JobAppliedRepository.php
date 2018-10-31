@@ -12,4 +12,11 @@ namespace App\Repository;
 interface JobAppliedRepository
 {
     public function findAllJobApplicants();
+
+    public function findJobApplicantsByJobPosted($id);
+
+    public function findJobApplicantsById($id);
+
+    public function saveOrUpdateJobApplicants($data);
+
 }

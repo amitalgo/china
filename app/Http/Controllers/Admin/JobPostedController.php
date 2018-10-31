@@ -132,4 +132,13 @@ class JobPostedController extends Controller
     {
         //
     }
+
+    public function approveJob(Request $request){
+        $approveordisapprovejob= $this->jobPostedService->approveordisapprovejob($request);
+        if($approveordisapprovejob){
+            return 1;
+        }else{
+            return 'Something Went Wrong';
+        }
+    }
 }

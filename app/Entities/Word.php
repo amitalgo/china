@@ -107,6 +107,23 @@ class Word
     }
 
     /**
+     * @return mixed
+     */
+    public function getWordId()
+    {
+        return $this->wordId;
+    }
+
+    /**
+     * @param mixed $wordId
+     */
+    public function setWordId($wordId)
+    {
+        $this->wordId = $wordId;
+    }
+
+
+    /**
      * Gets triggered only on insert
 
      * @ORM\PrePersist

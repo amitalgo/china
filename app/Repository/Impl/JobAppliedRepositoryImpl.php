@@ -17,4 +17,23 @@ class JobAppliedRepositoryImpl extends EntityRepository implements JobAppliedRep
     public function findAllJobApplicants(){
         return $this->findAll();
     }
+
+    public function findJobApplicantsByJobPosted($id){
+        return $this->findBy(['jobPostedId'=>$id,'isActive'=>1]);
+    }
+
+    public function findJobApplicantsById($id){
+        return $this->find($id);
+    }
+
+    public function saveOrUpdateJobApplicants($data){
+        try{
+            $this->_em->persist($data);
+            $this->_em->flush();
+            return true;
+        }catch (\Exception $e){
+            return false;
+//            dd($e);
+        }
+    }
 }
