@@ -47,19 +47,13 @@
                                                 <div class="col-lg-11"><h4 class="card-title">Meaning</h4></div>
                                                 <div class="float-right"><a href="javascript:void(0)"><i class="fa fa-plus-square add-meaning-box"></i></a></div>
                                                     <div class="col-lg-4 top-pdn">
-                                                        <input type="text" class="form-control" id="job-skill" name="job-skill" placeholder="Enter Type" value="@if(isset($jobDetail)){{$jobDetail->getJobSkill()}} @endif">
-                                                        <input type="text" class="form-control" id="job-skill" name="job-skill" placeholder="Enter Synonyms" value="@if(isset($jobDetail)){{$jobDetail->getJobSkill()}} @endif">
-                                                        <textarea class="form-control" style="height: 20%;" rows="5" cols="5" id="job-desc" name="job-desc" placeholder="Enter Meaning">@if(isset($jobDetail)){{$jobDetail->getJobDescription()}} @endif</textarea>
-                                                        <textarea class="form-control" style="height: 20%;" rows="5" cols="5" id="job-desc" name="job-desc" placeholder="Enter Example">@if(isset($jobDetail)){{$jobDetail->getJobDescription()}} @endif</textarea>
+                                                        <input type="text" class="form-control" name="word-type[]" placeholder="Enter Type" value="@if(isset($jobDetail)){{$jobDetail->getJobSkill()}} @endif">
+                                                        <input type="text" class="form-control" name="word-synonyms[]" placeholder="Enter Synonyms" value="@if(isset($jobDetail)){{$jobDetail->getJobSkill()}} @endif">
+                                                        <textarea class="form-control" style="height: 20%;" rows="5" cols="5" name="word-mean[]" placeholder="Enter Meaning">@if(isset($jobDetail)){{$jobDetail->getJobDescription()}} @endif</textarea>
+                                                        <textarea class="form-control" style="height: 20%;" rows="5" cols="5" id="job-desc" name="word-desc[]" placeholder="Enter Example">@if(isset($jobDetail)){{$jobDetail->getJobDescription()}} @endif</textarea>
                                                     </div>
-
-
-
                                             </div>
-
-
                                         </div>
-
                                     </div>
                                     <div class="col-md-12 form-group row">
                                         <div class="col-lg-8 ml-auto">

@@ -2,7 +2,7 @@ var Words={
     initControls: function () {
 
         $("body").on('click','.add-meaning-box',function(){
-            var div  ="<div class='col-lg-4 top-pdn'><input type='text' class='form-control' id='job-skill' name='job-skill' placeholder='Enter Type'><input type='text' class='form-control' id='job-skill' name='job-skill' placeholder='Enter Synonyms'>";
+            var div  ="<div class='col-lg-4 top-pdn'><input type='text' class='form-control' name='word-type[]' placeholder='Enter Type'><input type='text' class='form-control' name='word-synonyms[]' placeholder='Enter Synonyms'><textarea class='form-control' style='height: 20%;' rows='5' cols='5' name='word-mean[]' placeholder='Enter Meaning'></textarea><textarea class='form-control' style='height: 20%;' rows='5' cols='5' name='word-desc[]' placeholder='Enter Example'></textarea>";
                 div += "</div>";
             $('.box-append').append(div);
         });
