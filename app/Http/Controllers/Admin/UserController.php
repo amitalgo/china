@@ -90,6 +90,11 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request,[
+            "firstName" =>"required",
+            "email" =>"required",
+            "contactNumber" =>"required"
+        ]);
         $result = $this->userService->updateUser($request,$id);
         if($result){
             return redirect()->route('user.index')->with('success-msg','User Updated SuccessFully');

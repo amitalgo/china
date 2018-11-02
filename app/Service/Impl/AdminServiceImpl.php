@@ -50,9 +50,10 @@ class AdminServiceImpl extends FileUploadHelper implements  AdminService {
         $admin->setIsActive(1);
         $admin->setCreatedAt(new \DateTime());
         $admin->setUpdatedAt(new \DateTime());
-        $profilePic=$this->uploadFile($request,'profile-pic');
-        if($profilePic){
-            $admin->setProfileImage($profilePic);
+        if($request->hasFile('image')) {
+            $fileName = $request->get('first-name').time();
+            $path = $this->uploadImage($request, $fileName);
+            $admin->setProfileImage(asset($path));
         }
 
         if(null==($request->get('isAdmin'))) {
@@ -77,9 +78,10 @@ class AdminServiceImpl extends FileUploadHelper implements  AdminService {
         $admin->setFirstName($request->get('first-name'));
         $admin->setLastName($request->get('last-name'));
         $admin->setEmail($request->get('email'));
-        $profilePic = $this->uploadFile($request, 'profile-pic');
-        if($profilePic){
-            $admin->setProfileImage($profilePic);
+        if($request->hasFile('image')) {
+            $fileName = $request->get('first-name').time();
+            $path = $this->uploadImage($request, $fileName);
+            $admin->setProfileImage(asset($path));
         }
 
         $admin_roles=$this->adminRoleRepository->deleteExistingAdminRole($id);

@@ -6704,8 +6704,8 @@ tbody tr td:last-child {
 .error-body {
   left: 0;
   position: absolute;
-  right: 0;
-  top: 50%;
+  right: 25%;
+  top: 40%;
   transform: translateY(-50%);
 }
 .error-body h1 {
