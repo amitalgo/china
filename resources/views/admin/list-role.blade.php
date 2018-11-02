@@ -34,7 +34,7 @@
                                 <thead>
                                 <tr>
                                     <th>Role</th>
-                                    <td>Permission</td>
+                                    <td>Status</td>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -42,7 +42,7 @@
                                     @foreach($roles as $role)
                                         <tr>
                                         <td>{{ $role->getRole() }}</td>
-                                        <td></td>
+                                        <td>{{($role->getisActive()==1)? 'Active': 'InActive' }} </td>
                                         <td><a href="{{ route('role.edit',['role'=>$role->getId()]) }}" class="btn btn-icon waves-effect waves-light btn-white">
                                                 <i class="fa fa-edit"></i>
                                             </a></td>

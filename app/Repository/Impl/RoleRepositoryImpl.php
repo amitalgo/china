@@ -15,7 +15,7 @@ use Doctrine\ORM\EntityRepository;
 class RoleRepositoryImpl extends EntityRepository implements RoleRepository
 {
     public function findActiveRoles(){
-        return $this->findBy(['isActive'=>1]);
+        return $this->findAll();
     }
 
     public function saveOrUpdateRole($role){

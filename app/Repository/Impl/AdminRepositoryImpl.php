@@ -19,7 +19,7 @@ class AdminRepositoryImpl extends EntityRepository implements AdminRepository{
     }
 
     public function findActiveUsers(){
-        return $this->findBy(['isActive'=>1]);
+        return $this->findAll();
     }
 
     public function findAdminById($id){

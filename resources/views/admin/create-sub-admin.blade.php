@@ -112,6 +112,15 @@
                                                     </select>
                                                 </div>
                                             </div>
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 col-form-label" for="status">Status</label>
+                                                <div class="col-md-4">
+                                                        <select class="form-control" name="status" id="status">
+                                                            <option value="1" @if(isset($admin)&&($admin->getisActive()==1)){{ 'selected' }} @endif>Active</option>
+                                                            <option value="0" @if(isset($admin)&&($admin->getisActive()==0)){{ 'selected' }} @endif>InActive</option>
+                                                        </select>
+                                                    </div>
+                                            </div>
                                         </div>
                                         <div class="col-md-4 float-left">
                                             @if(isset($admin))

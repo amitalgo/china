@@ -31,7 +31,7 @@ class RoleServiceImpl extends FileUploadHelper implements RoleService
         $role = new Role();
         $role->setRole($data->get('role-name'));
         $role->setPermission(json_encode($data->get('permission'),JSON_FORCE_OBJECT));
-        $role->setIsActive(1);
+        $role->setIsActive($data->get('status'));
         $role->setCreatedAt(new \DateTime());
         $role->setUpdatedAt(new \DateTime());
 
@@ -45,6 +45,7 @@ class RoleServiceImpl extends FileUploadHelper implements RoleService
     public function updateRole($data,$id){
         $roles = $this->roleRepository->findActiveRoleById($id);
         $roles->setRole($data->get('role-name'));
+        $roles->setIsActive($data->get('status'));
         $roles->setPermission(json_encode($data->get('permission'),JSON_FORCE_OBJECT));
         $roles->setUpdatedAt(new \DateTime());
 

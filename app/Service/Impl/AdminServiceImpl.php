@@ -41,13 +41,14 @@ class AdminServiceImpl extends FileUploadHelper implements  AdminService {
     }
 
     public function saveAdmin($request){
+        dd($request->all());
         $admin = new Admin();
         $admin->setFirstName($request->get('first-name'));
         $admin->setLastName($request->get('last-name'));
         $admin->setEmail($request->get('email'));
         $admin->setPassword(bcrypt($request->get('cpassword')));
         $admin->setContactNumber($request->get('contact'));
-        $admin->setIsActive(1);
+        $admin->setIsActive($request->get('status'));
         $admin->setCreatedAt(new \DateTime());
         $admin->setUpdatedAt(new \DateTime());
         if($request->hasFile('image')) {
@@ -62,7 +63,7 @@ class AdminServiceImpl extends FileUploadHelper implements  AdminService {
             $adminRole->setRoleId($this->roleRepository->findActiveRoleById($request->get('role')));
             $adminRole->setCreatedAt(new \DateTime());
             $adminRole->setUpdatedAt(new \DateTime());
-            $adminRole->setIsActive(1);
+            $adminRole->setIsActive($request->get('status'));
 
             $admin->addAdminRole($adminRole);
 
@@ -78,6 +79,7 @@ class AdminServiceImpl extends FileUploadHelper implements  AdminService {
         $admin->setFirstName($request->get('first-name'));
         $admin->setLastName($request->get('last-name'));
         $admin->setEmail($request->get('email'));
+        $admin->setIsActive($request->get('status'));
         if($request->hasFile('image')) {
             $fileName = $request->get('first-name').time();
             $path = $this->uploadImage($request, $fileName);

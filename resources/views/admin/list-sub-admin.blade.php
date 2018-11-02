@@ -39,6 +39,7 @@
                                     <th>Contact No</th>
                                     <th>Role</th>
                                     <th>Is SuperAdmin</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -48,8 +49,12 @@
                                     <td>{{ $admin->getfirstName() }}</td>
                                     <td>{{ $admin->getEmail() }}</td>
                                     <td>{{ $admin->getContactNumber() }}</td>
-                                    <td>Admin</td>
-                                    <td>@if($admin->getisSuperUser()) Yes @else No @endif </td>
+                                    <td><ul>@foreach($admin->getAdminRole() as $adminRole)
+                                            <li>{{ $adminRole->getRoleId()->getRole() }}</li>
+                                            @endforeach</ul>
+                                    </td>
+                                    <td>{{($admin->getisSuperUser())? 'Yes':  'No' }} </td>
+                                    <td> @if($admin->getisActive()) {{ 'Active' }} @else {{ 'InActive' }} @endif</td>
                                     <td><a href="{{ route('sub-admin.edit',['admin'=>$admin->getId()]) }}" class="btn btn-icon waves-effect waves-light btn-white">
                                             <i class="fa fa-edit"></i>
                                         </a></td>

@@ -64,6 +64,17 @@
                                             </ul>
                                         </div>
                                     </div>
+                                    <div class="col-md-6 float-left">
+                                        <div class="form-group row">
+                                            <label class="col-lg-4 col-form-label" for="status">Status<span class="text-danger">*</span></label>
+                                            <div class="col-lg-6">
+                                                <select class="form-control" name="status" id="status">
+                                                    <option value="1" @if(isset($role)&&($role->getisActive()==1)){{ 'selected' }} @endif>Active</option>
+                                                    <option value="0" @if(isset($role)&&($role->getisActive()==0)){{ 'selected' }} @endif>InActive</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="col-md-12 center form-group row">
                                         <div class="col-lg-8 ml-auto">
                                             <button type="submit" class="btn btn-primary center-block">Submit</button>
