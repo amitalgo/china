@@ -36,6 +36,12 @@ class Word
 
     /**
      * @var string
+     * @ORM\Column(type="string", length=100)
+     */
+    private $pinyinWord;
+
+    /**
+     * @var string
      * @ORM\Column(type="boolean")
      */
     private $isActive;
@@ -90,6 +96,22 @@ class Word
     public function setWord(string $word): void
     {
         $this->word = $word;
+    }
+
+     /**
+     * @return string
+     */
+    public function getPinyinWord(): string
+    {
+        return $this->pinyinWord;
+    }
+
+    /**
+     * @param string $word
+     */
+    public function setPinyinWord($pinyinWord): void
+    {
+        $this->pinyinWord = $pinyinWord;
     }
 
     /**

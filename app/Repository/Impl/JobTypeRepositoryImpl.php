@@ -26,7 +26,7 @@ class JobTypeRepositoryImpl extends EntityRepository implements JobTypeRepositor
     }
 
     public function findAllActiveJobType(){
-        return $this->findBy(['isActive'=>1]);
+        return $this->findAll();
     }
 
     public function findJobTypeById($id){

@@ -46,7 +46,7 @@ class UserServiceImpl extends FileUploadHelper implements  UserService {
         $user->setFirstName($request->get('firstName'));
         $user->setLastName($request->get('lastName'));
         $user->setEmail($request->get('email'));
-        $user->setIsActive(1);
+        $user->setIsActive($request->get('status'));
         $user->setCreatedAt(new \DateTime('now'));
         $user->setContactNumber($request->get('contactNumber'));
         $user->setPassword(Hash::make($request->get('password')));
@@ -61,6 +61,7 @@ class UserServiceImpl extends FileUploadHelper implements  UserService {
         $user->setEmail($request->get('email'));
         $user->setContactNumber($request->get('contactNumber'));
         $user->setLocation($request->get('location'));
+        $user->setIsActive($request->get('status'));
         return $this->userRepository->saveOrUpdateUser($user);
     }
 

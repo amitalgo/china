@@ -25,4 +25,8 @@ class JobPostedRepositoryImpl extends EntityRepository implements JobPostedRepos
     public function findJobPostedById($id){
         return $this->find($id);
     }
+
+    public function findApprovedJobPosted(){
+        return $this->findBy(['isActive'=>1]);
+    }
 }

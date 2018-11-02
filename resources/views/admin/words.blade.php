@@ -43,6 +43,12 @@
                                                     <input type="text" class="form-control" required id="word" name="word" placeholder="Enter Word" value="@if(isset($words)){{$words->getWord()}} @endif">
                                                 </div>
                                             </div>
+                                            <div class="form-group row">
+                                                <label class="col-lg-2 col-form-label" for="pinyin-word">Pinyin Word<span class="text-danger">*</span></label>
+                                                <div class="col-lg-4">
+                                                    <input type="text" class="form-control" required id="pinyin-word" name="pinyin-word" placeholder="" value="@if(isset($words)){{$words->getPinyinWord()}} @endif">
+                                                </div>
+                                            </div>
                                             <div class="form-group row box-append">
                                                 <div class="col-lg-11"><h4 class="card-title">Meaning</h4></div>
                                                 <div class="float-right"><a href="javascript:void(0)"><i class="fa fa-plus-square add-meaning-box"></i></a></div>
@@ -86,6 +92,15 @@
 
                                                     @endif
 
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-lg-2 col-form-label" for="status">Status<span class="text-danger">*</span></label>
+                                                <div class="col-lg-4">
+                                                    <select class="form-control" name="status" id="status">
+                                                        <option value="1" @if(isset($words)&&($words->getisActive()==1)){{ 'selected' }} @endif>Active</option>
+                                                        <option value="0" @if(isset($words)&&($words->getisActive()==0)){{ 'selected' }} @endif>InActive</option>
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

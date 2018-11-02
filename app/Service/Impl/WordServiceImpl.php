@@ -31,7 +31,8 @@ class WordServiceImpl extends FileUploadHelper implements WordService
     {
         $word = new Word();
         $word->setWord($request->get('word'));
-        $word->setIsActive(1);
+        $word->setPinyinWord($request->get('pinyin-word'));
+        $word->setIsActive($request->get('status'));
         $word->setCreatedAt(new \DateTime());
         $word->setUpdatedAt(new \DateTime());
         $wordTypes=$request->get('word-type');
@@ -41,7 +42,7 @@ class WordServiceImpl extends FileUploadHelper implements WordService
             $wordMeaning->setMeaning($request->get('word-mean')[$key]);
             $wordMeaning->setSynonyms($request->get('word-synonyms')[$key]);
             $wordMeaning->setExample($request->get('word-desc')[$key]);
-            $wordMeaning->setIsActive(1);
+            $wordMeaning->setIsActive($request->get('status'));
             $wordMeaning->setCreatedAt(new \DateTime());
             $wordMeaning->setUpdatedAt(new \DateTime());
             $word->addWordMeaning($wordMeaning);
@@ -53,6 +54,8 @@ class WordServiceImpl extends FileUploadHelper implements WordService
     public function updateWord($request,$id){
         $words = $this->wordRepository->findWordById($id);
         $words->setWord($request->get('word'));
+        $words->setPinyinWord($request->get('pinyin-word'));
+        $words->setIsActive($request->get('status'));
         $this->wordRepository->deleteExistingWordMeaning($id);
         $wordTypes=$request->get('word-type');
         foreach($wordTypes as $key=>$wordType){
@@ -61,7 +64,7 @@ class WordServiceImpl extends FileUploadHelper implements WordService
             $wordMeaning->setMeaning($request->get('word-mean')[$key]);
             $wordMeaning->setSynonyms($request->get('word-synonyms')[$key]);
             $wordMeaning->setExample($request->get('word-desc')[$key]);
-            $wordMeaning->setIsActive(1);
+            $wordMeaning->setIsActive($request->get('status'));
             $wordMeaning->setCreatedAt(new \DateTime());
             $wordMeaning->setUpdatedAt(new \DateTime());
             $words->addWordMeaning($wordMeaning);

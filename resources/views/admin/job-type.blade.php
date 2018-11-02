@@ -30,7 +30,7 @@
                         </h4>
                         <div class="card-body">
                             <div class="form-validation">
-                                <form class="form-valide" action="@if(isset($jobTypes)) {{route('jobtype.update',['admins' => $jobTypes->getId()] )}} @else{{route('jobtypephp.store')}} @endif" method="post" enctype="multipart/form-data">
+                                <form class="form-valide" action="@if(isset($jobTypes)) {{route('jobtype.update',['admins' => $jobTypes->getId()] )}} @else{{route('jobtype.store')}} @endif" method="post" enctype="multipart/form-data">
                                     @csrf
                                     @if(isset($jobTypes))
                                         <input type="hidden" name="_method" value="PUT">
@@ -41,6 +41,17 @@
                                                 <label class="col-lg-4 col-form-label" for="first-name">Job Type<span class="text-danger">*</span></label>
                                                 <div class="col-lg-6">
                                                     <input type="text" class="form-control" id="jobType" name="jobType" placeholder="Enter Job Type" value="@if(isset($jobTypes)){{$jobTypes->getJobType()}} @endif">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-8 float-left">
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 col-form-label" for="status">Status<span class="text-danger">*</span></label>
+                                                <div class="col-lg-6">
+                                                    <select class="form-control" name="status" id="status">
+                                                        <option value="1" @if(isset($jobTypes)&&($jobTypes->getisActive()==1)){{ 'selected' }} @endif>Active</option>
+                                                        <option value="0" @if(isset($jobTypes)&&($jobTypes->getisActive()==0)){{ 'selected' }} @endif>InActive</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>

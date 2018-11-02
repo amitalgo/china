@@ -43,7 +43,8 @@ class JobTypeController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            "jobType" => "required"
+            "jobType" => "required",
+            "status" => "required"
         ]);
 
         $result = $this->jobTypeService->saveJobType($request);
@@ -87,7 +88,8 @@ class JobTypeController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            "jobType" => "required"
+            "jobType" => "required",
+            "status"=> "required"
         ]);
 
         $result = $this->jobTypeService->updateJobType($request,$id);

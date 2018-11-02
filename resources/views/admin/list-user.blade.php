@@ -37,6 +37,7 @@
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Contact No</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -46,7 +47,7 @@
                                         <td>{{ $user->getFirstName().' '.$user->getLastName() }}</td>
                                         <td>{{ $user->getEmail() }}</td>
                                         <td>{{ $user->getContactNumber() }}</td>
-
+                                        <td>{{($user->getisActive()==1)? 'Active': 'InActive' }} </td>
                                         <td><a href="{{ route('user.edit',['user'=>$user->getId()]) }}" class="btn btn-icon waves-effect waves-light btn-white">
                                                 <i class="fa fa-edit"></i>
                                             </a></td>

@@ -19,7 +19,7 @@ class UserRepositoryImpl extends EntityRepository implements UserRepository{
     }
 
     public function findActiveUsers(){
-        return $this->findBy(['isActive'=>1]);
+        return $this->findAll();
     }
 
     public function findUser($id){

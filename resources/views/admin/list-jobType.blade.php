@@ -18,6 +18,7 @@
     <!-- End Bread crumb-->
     <!-- Container fluid  -->
     <div class="container-fluid">
+    @include('admin.includes.alert')
         <!-- Start Page Content -->
         <div class="row">
             <div class="col-md-12">
@@ -34,6 +35,7 @@
                                 <thead>
                                 <tr>
                                     <th>JobType</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -41,6 +43,7 @@
                                 @foreach($jobTypes as $jobtype)
                                     <tr>
                                         <td>{{ $jobtype->getJobType() }}</td>
+                                        <td>{{($jobtype->getisActive()==1)? 'Active': 'InActive' }} </td>
                                         <td><a href="{{route('jobtype.edit',['jobtype' =>$jobtype->getId()])}}" class="btn btn-icon waves-effect waves-light btn-white">
                                                 <i class="fa fa-edit"></i>
                                             </a></td>

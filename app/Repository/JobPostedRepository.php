@@ -17,4 +17,5 @@ interface JobPostedRepository{
 
     public function findJobPostedById($id);
 
+    public function findApprovedJobPosted();
 }

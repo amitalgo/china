@@ -39,7 +39,7 @@
                 <div class="col-lg-4">
                     <div class="login-content card">
                         <div class="login-form">
-                            <h4>GoldenBook</h4>
+                            <h4>Yeh China</h4>
                             <form method="post" action="/admin/process-login">
                                 {{csrf_field()}}
                                 <div class="form-group">

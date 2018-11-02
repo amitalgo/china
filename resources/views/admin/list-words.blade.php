@@ -36,6 +36,7 @@
                                     {{--<th>ID</th>--}}
                                     <th>Word</th>
                                     <th>Meaning</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -53,6 +54,7 @@
                                             @endforeach
                                             </ul>
                                         </td>
+                                        <td>{{($word->getisActive()==1)? 'Active': 'InActive' }} </td>
                                         <td>
                                             <a href="{{ route('word.edit',['word'=>$word->getId()]) }}" class="btn btn-icon waves-effect waves-light btn-white">
                                                 <i class="fa fa-edit"></i>
