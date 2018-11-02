@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Entities\Admin;
 use App\Entities\AdminRole;
+use App\Entities\ContactUsList;
 use App\Entities\JobApplied;
 use App\Entities\JobPosted;
 use App\Entities\JobType;
@@ -13,7 +14,9 @@ use App\Entities\User;
 use App\Entities\UserRole;
 use App\Entities\Word;
 use App\Repository\AdminRoleRepository;
+use App\Repository\EnquiryRepository;
 use App\Repository\Impl\AdminRoleRepositoryImpl;
+use App\Repository\Impl\EnquiryRepositoryImpl;
 use App\Repository\Impl\JobAppliedRepositoryImpl;
 use App\Repository\Impl\JobPostedRepositoryImpl;
 use App\Repository\Impl\JobTypeRepositoryImpl;
@@ -33,7 +36,9 @@ use App\Repository\UserRepository;
 use App\Repository\UserRoleRepository;
 use App\Repository\WordRepository;
 use App\Service\AdminRoleService;
+use App\Service\EnquiryService;
 use App\Service\Impl\AdminRoleServiceImpl;
+use App\Service\Impl\EnquiryServiceImpl;
 use App\Service\Impl\JobAppliedServiceImpl;
 use App\Service\Impl\JobPostedServiceImpl;
 use App\Service\Impl\JobTypeServiceImpl;
@@ -81,12 +86,13 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(AdminService::class, AdminServiceImpl::class);
         $this->app->bind(PageService::class, PageServiceImpl::class);
         $this->app->bind(AdminRoleService::class,AdminRoleServiceImpl::class);
-        $this->app->bind(RoleService::class,RoleServiceImpl::class);
         $this->app->bind(UserService::class, UserServiceImpl::class);
         $this->app->bind(JobPostedService::class,JobPostedServiceImpl::class);
         $this->app->bind(JobTypeService::class,JobTypeServiceImpl::class);
         $this->app->bind(JobAppliedService::class,JobAppliedServiceImpl::class);
         $this->app->bind(WordService::class,WordServiceImpl::class);
+        $this->app->bind(EnquiryService::class,EnquiryServiceImpl::class);
+        $this->app->bind(RoleService::class,RoleServiceImpl::class);
         /*
          * Repository Binding
          */
@@ -107,13 +113,6 @@ class AppServiceProvider extends ServiceProvider
             return new AdminRoleRepositoryImpl(
                 $app['em'],
                 $app['em']->getClassMetaData(AdminRole::class)
-            );
-        });
-
-        $this->app->bind(RoleRepository::class,function($app){
-            return new RoleRepositoryImpl(
-                $app['em'],
-                $app['em']->getClassMetaData(Role::class)
             );
         });
 
@@ -156,6 +155,20 @@ class AppServiceProvider extends ServiceProvider
             return new WordRepositoryImpl(
                 $app['em'],
                 $app['em']->getClassMetaData(Word::class)
+            );
+        });
+
+        $this->app->bind(EnquiryRepository::class, function ($app){
+            return new EnquiryRepositoryImpl(
+                $app['em'],
+                $app['em']->getClassMetaData(ContactUsList::class)
+            );
+        });
+
+        $this->app->bind(RoleRepository::class, function ($app){
+            return new RoleRepositoryImpl(
+                $app['em'],
+                $app['em']->getClassMetaData(Role::class)
             );
         });
     }

@@ -1,19 +1,19 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: Android
- * Date: 05/10/2018
- * Time: 3:41 PM
+ * User: PC
+ * Date: 01/11/2018
+ * Time: 4:53 PM
  */
 
 namespace App\Repository;
 
 
-interface RoleRepository{
+interface RoleRepository
+{
+    public function findActiveRoles();
+
+    public function saveOrUpdateRole($role);
 
     public function findActiveRoleById($id);
-
-    public function getActiveRoles();
-
-    public function saveOrUpdateRole($data);
 }

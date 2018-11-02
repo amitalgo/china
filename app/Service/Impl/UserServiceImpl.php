@@ -38,7 +38,7 @@ class UserServiceImpl extends FileUploadHelper implements  UserService {
     }
 
     public function getUser($id){
-
+        return $this->userRepository->findUser($id);
     }
 
     public function saveUser($request){
@@ -58,7 +58,9 @@ class UserServiceImpl extends FileUploadHelper implements  UserService {
         $user = $this->userRepository->findUser($id);
         $user->setFirstName($request->get('firstName'));
         $user->setLastName($request->get('lastName'));
+        $user->setEmail($request->get('email'));
         $user->setContactNumber($request->get('contactNumber'));
+        $user->setLocation($request->get('location'));
         return $this->userRepository->saveOrUpdateUser($user);
     }
 

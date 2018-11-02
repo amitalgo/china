@@ -1,41 +1,54 @@
 <?php
-
+/**
+ * Created by PhpStorm.
+ * User: PC
+ * Date: 01/11/2018
+ * Time: 4:52 PM
+ */
 
 namespace App\Service\Impl;
+
 
 use App\Entities\Role;
 use App\Helper\FileUploadHelper;
 use App\Repository\RoleRepository;
 use App\Service\RoleService;
 
-class RoleServiceImpl extends FileUploadHelper implements RoleService{
-
+class RoleServiceImpl extends FileUploadHelper implements RoleService
+{
     private $roleRepository;
 
-    public function __construct(RoleRepository $roleRepository){
+    public function __construct(RoleRepository $roleRepository)
+    {
         $this->roleRepository=$roleRepository;
     }
 
     public function getActiveRoles(){
-        return $this->roleRepository->getActiveRoles();
+        return $this->roleRepository->findActiveRoles();
+    }
+
+    public function saveRole($data){
+        $role = new Role();
+        $role->setRole($data->get('role-name'));
+        $role->setPermission(json_encode($data->get('permission'),JSON_FORCE_OBJECT));
+        $role->setIsActive(1);
+        $role->setCreatedAt(new \DateTime());
+        $role->setUpdatedAt(new \DateTime());
+
+        return $this->roleRepository->saveOrUpdateRole($role);
     }
 
     public function getActiveRoleById($id){
         return $this->roleRepository->findActiveRoleById($id);
     }
 
-    public function updateRole($request,$id){
-        $role = $this->roleRepository->findActiveRoleById($id);
-        $role->setRole($request->get('role-name'));
-        $role->setIsActive(1);
-        return $this->roleRepository->saveOrUpdateRole($role);
+    public function updateRole($data,$id){
+        $roles = $this->roleRepository->findActiveRoleById($id);
+        $roles->setRole($data->get('role-name'));
+        $roles->setPermission(json_encode($data->get('permission'),JSON_FORCE_OBJECT));
+        $roles->setUpdatedAt(new \DateTime());
+
+        return $this->roleRepository->saveOrUpdateRole($roles);
     }
 
-    public function saveRole($request){
-        $role = new Role();
-        $role->setRole($request->get('role-name'));
-        $role->setIsActive(1);
-        $role->setPermission('later');
-        return $this->roleRepository->saveOrUpdateRole($request);
-    }
 }

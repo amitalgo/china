@@ -9,6 +9,8 @@
 namespace App\Service\Impl;
 
 
+use App\Entities\Word;
+use App\Entities\WordMeaning;
 use App\Helper\FileUploadHelper;
 use App\Repository\WordRepository;
 use App\Service\WordService;
@@ -23,6 +25,52 @@ class WordServiceImpl extends FileUploadHelper implements WordService
 
     public function getAllWords(){
         return $this->wordRepository->findAllWords();
+    }
+
+    public function saveWord($request)
+    {
+        $word = new Word();
+        $word->setWord($request->get('word'));
+        $word->setIsActive(1);
+        $word->setCreatedAt(new \DateTime());
+        $word->setUpdatedAt(new \DateTime());
+        $wordTypes=$request->get('word-type');
+        foreach($wordTypes as $key=>$wordType){
+            $wordMeaning= new WordMeaning();
+            $wordMeaning->setType($wordType);
+            $wordMeaning->setMeaning($request->get('word-mean')[$key]);
+            $wordMeaning->setSynonyms($request->get('word-synonyms')[$key]);
+            $wordMeaning->setExample($request->get('word-desc')[$key]);
+            $wordMeaning->setIsActive(1);
+            $wordMeaning->setCreatedAt(new \DateTime());
+            $wordMeaning->setUpdatedAt(new \DateTime());
+            $word->addWordMeaning($wordMeaning);
+        }
+
+        return $this->wordRepository->saveOrUpdateWord($word);
+    }
+
+    public function updateWord($request,$id){
+        $words = $this->wordRepository->findWordById($id);
+        $words->setWord($request->get('word'));
+        $this->wordRepository->deleteExistingWordMeaning($id);
+        $wordTypes=$request->get('word-type');
+        foreach($wordTypes as $key=>$wordType){
+            $wordMeaning= new WordMeaning();
+            $wordMeaning->setType($wordType);
+            $wordMeaning->setMeaning($request->get('word-mean')[$key]);
+            $wordMeaning->setSynonyms($request->get('word-synonyms')[$key]);
+            $wordMeaning->setExample($request->get('word-desc')[$key]);
+            $wordMeaning->setIsActive(1);
+            $wordMeaning->setCreatedAt(new \DateTime());
+            $wordMeaning->setUpdatedAt(new \DateTime());
+            $words->addWordMeaning($wordMeaning);
+        }
+        return $this->wordRepository->saveOrUpdateWord($words);
+    }
+
+    public function getWordById($id){
+        return $this->wordRepository->findWordById($id);
     }
 
 }

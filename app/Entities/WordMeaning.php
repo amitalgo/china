@@ -47,7 +47,7 @@ class WordMeaning
 
     /**
      * @var string
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="text")
      */
     private $meaning;
 
@@ -64,18 +64,14 @@ class WordMeaning
     private $isActive;
 
     /**
-     * @var datetime $createdAt
-     *
      * @ORM\Column(type="datetime")
      */
-    protected $createdAt;
+    private $createdAt;
 
     /**
-     * @var datetime $updatedAt
-     *
-     * @ORM\Column(type="datetime", nullable = true)
+     * @ORM\Column(type="datetime")
      */
-    protected $updatedAt;
+    private $updatedAt;
 
     /**
      * @return int
@@ -88,7 +84,7 @@ class WordMeaning
     /**
      * @param int $id
      */
-    public function setId(int $id): void
+    public function setId($id): void
     {
         $this->id = $id;
     }
@@ -120,15 +116,15 @@ class WordMeaning
     /**
      * @param string $type
      */
-    public function setType(string $type): void
+    public function setType($type): void
     {
         $this->type = $type;
     }
 
     /**
-     * @return string
+     * @return mixed
      */
-    public function getSynonyms(): string
+    public function getSynonyms()
     {
         return $this->synonyms;
     }
@@ -136,15 +132,15 @@ class WordMeaning
     /**
      * @param string $synonyms
      */
-    public function setSynonyms(string $synonyms): void
+    public function setSynonyms($synonyms): void
     {
         $this->synonyms = $synonyms;
     }
 
     /**
-     * @return string
+     * @return mixed
      */
-    public function getMeaning(): string
+    public function getMeaning()
     {
         return $this->meaning;
     }
@@ -152,15 +148,15 @@ class WordMeaning
     /**
      * @param string $meaning
      */
-    public function setMeaning(string $meaning): void
+    public function setMeaning($meaning): void
     {
         $this->meaning = $meaning;
     }
 
     /**
-     * @return string
+     * @return mixed
      */
-    public function getExample(): string
+    public function getExample()
     {
         return $this->example;
     }
@@ -168,15 +164,15 @@ class WordMeaning
     /**
      * @param string $example
      */
-    public function setExample(string $example): void
+    public function setExample($example): void
     {
         $this->example = $example;
     }
 
     /**
-     * @return string
+     * @return mixed
      */
-    public function getisActive(): string
+    public function getisActive()
     {
         return $this->isActive;
     }
@@ -184,28 +180,40 @@ class WordMeaning
     /**
      * @param string $isActive
      */
-    public function setIsActive(string $isActive): void
+    public function setIsActive($isActive): void
     {
         $this->isActive = $isActive;
     }
 
     /**
-     * Gets triggered only on insert
-
-     * @ORM\PrePersist
+     * @return mixed
      */
-    public function onPrePersist()
+    public function getCreatedAt()
     {
-        $this->createdAt = new \DateTime("now");
+        return $this->createdAt;
     }
 
     /**
-     * Gets triggered every time on update
-
-     * @ORM\PreUpdate
+     * @param mixed $createdAt
      */
-    public function onPreUpdate()
+    public function setCreatedAt($createdAt)
     {
-        $this->updatedAt = new \DateTime("now");
+        $this->createdAt = $createdAt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param mixed $updatedAt
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
     }
 }

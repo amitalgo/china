@@ -7,6 +7,7 @@
         <link href="{{asset('css/helper.css')}}" rel="stylesheet">
         <link href="{{asset('css/style.css')}}" rel="stylesheet">
         <link href="{{ asset('css/bootstrap-toggle.css') }}" rel="stylesheet">
+        <link rel="stylesheet" href="{{ asset('css/file-explore.css') }}">
 
         <style>
             .alertify{
@@ -27,6 +28,42 @@
                 border: 1px solid #5fbeaa !important;
             }
            .top-pdn{ margin-top: 15px;}
+
+            @media (min-width: 768px) {
+                .col-md-6 {
+                    -webkit-box-flex: 0;
+                    -ms-flex: 0 0 50%;
+                    flex: 0 0 50%;
+                    max-width: 50%;
+                    float: left;
+                }
+            }
+            .search-table .table thead th{border-bottom: none;}
+            .search-table .table td, .table th{padding: .6rem;}
+            .search-table tbody tr td:last-child{ text-align: left;}
+            .search-table .table > tbody > tr > td{ line-height: 22px;}
+            .search-table{
+                margin-top:10% !important;
+            }
+
+            .search-box input:focus{
+                box-shadow:none;
+                border:2px solid #eeeeee;
+            }
+            .search-list{
+                background: #fff;
+
+            }
+            .search-list h4{color:#fff; font-size:16px;
+                padding: 2%;
+                margin-bottom: 0%;
+
+            }
+            .search-list h5{ color:#fff;
+                margin-bottom: 0%; font-size:12px;
+                padding: 2%;
+            }
+            .bg_colo{ background: #056073; width:100%; float:left; padding: 1% 0;}
         </style>
 
 
@@ -54,7 +91,7 @@
                             <li class="nav-label">Manage Jobs</li>
 
                             <li class="item2" id="layout_3" role="presentation">
-                                <a href="#" aria-expanded="false">
+                                <a href="{{ url('admin/jobtype') }}" aria-expanded="false">
                                     <i class="icon-item2 fa fa-globe"></i>
                                     <span>Job Type</span>
                                 </a>
@@ -81,7 +118,7 @@
 
                             <li class="nav-label">Manage Users</li>
                             <li class="item2" id="layout_3" role="presentation">
-                                <a href="#" aria-expanded="false">
+                                <a href="{{ url('admin/user') }}" aria-expanded="false">
                                     <i class="icon-item2 fa fa-users"></i>
                                     <span>Users</span>
                                 </a>
@@ -95,7 +132,7 @@
                             </li>
                             <li class="nav-label">General</li>
                             <li class="item2" id="layout_3" role="presentation">
-                                <a href="#" aria-expanded="false">
+                                <a href="{{ url('admin/enquiries') }}" aria-expanded="false">
                                     <i class="icon-item2 fa fa-envelope"></i>
                                     <span>Enquiries</span>
                                 </a>
@@ -161,6 +198,9 @@
         {{--Datatables--}}
         <script src="{{asset('js/lib/datatables/datatables.min.js')}}"></script>
         <script src="{{asset('js/lib/datatables/datatables-init.js')}}"></script>
+
+        {{--File Explore--}}
+        <script src="{{ asset('js/file-explore.js') }}"></script>
 
         @stack('scripts')
     </body>

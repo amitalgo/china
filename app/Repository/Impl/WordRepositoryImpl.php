@@ -18,4 +18,27 @@ class WordRepositoryImpl extends EntityRepository implements WordRepository
         return $this->findAll();
     }
 
+    public function saveOrUpdateWord($word){
+        try{
+            $this->_em->persist($word);
+            $this->_em->flush();
+            return true;
+        }catch (\Exception $e){
+//            return false;
+            dd($e);
+        }
+    }
+
+    public function findWordById($id){
+        return $this->find($id);
+    }
+
+    public function deleteExistingWordMeaning($id){
+        $wordMeanings= $this->find($id);
+        foreach($wordMeanings->getWordId() as $wordMeaning){
+            $this->_em->remove($wordMeaning);
+        }
+        $this->_em->flush();
+    }
+
 }

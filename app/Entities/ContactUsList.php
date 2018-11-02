@@ -58,18 +58,14 @@ class ContactUsList
     private $isActive;
 
     /**
-     * @var datetime $createdAt
-     *
      * @ORM\Column(type="datetime")
      */
-    protected $createdAt;
+    private $createdAt;
 
     /**
-     * @var datetime $updatedAt
-     *
-     * @ORM\Column(type="datetime", nullable = true)
+     * @ORM\Column(type="datetime")
      */
-    protected $updatedAt;
+    private $updatedAt;
 
     /**
      * @return int
@@ -82,7 +78,7 @@ class ContactUsList
     /**
      * @param int $id
      */
-    public function setId(int $id): void
+    public function setId($id)
     {
         $this->id = $id;
     }
@@ -90,39 +86,71 @@ class ContactUsList
     /**
      * @return string
      */
-    public function getRole(): string
+    public function getSubject()
     {
-        return $this->role;
+        return $this->subject;
     }
 
     /**
-     * @param string $role
+     * @param string $subject
      */
-    public function setRole(string $role): void
+    public function setSubject($subject)
     {
-        $this->role = $role;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPermission(): string
-    {
-        return $this->permission;
-    }
-
-    /**
-     * @param string $permission
-     */
-    public function setPermission(string $permission): void
-    {
-        $this->permission = $permission;
+        $this->subject = $subject;
     }
 
     /**
      * @return string
      */
-    public function getisActive(): string
+    public function getContactNo()
+    {
+        return $this->contactNo;
+    }
+
+    /**
+     * @param string $contactNo
+     */
+    public function setContactNo($contactNo)
+    {
+        $this->contactNo = $contactNo;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMessage()
+    {
+        return $this->message;
+    }
+
+    /**
+     * @param string $message
+     */
+    public function setMessage(string $message)
+    {
+        $this->message = $message;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUserId()
+    {
+        return $this->userId;
+    }
+
+    /**
+     * @param mixed $userId
+     */
+    public function setUserId($userId)
+    {
+        $this->userId = $userId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getisActive()
     {
         return $this->isActive;
     }
@@ -130,28 +158,42 @@ class ContactUsList
     /**
      * @param string $isActive
      */
-    public function setIsActive(string $isActive): void
+    public function setIsActive($isActive)
     {
         $this->isActive = $isActive;
     }
 
     /**
-     * Gets triggered only on insert
-
-     * @ORM\PrePersist
+     * @return mixed
      */
-    public function onPrePersist()
+    public function getCreatedAt()
     {
-        $this->createdAt = new \DateTime("now");
+        return $this->createdAt;
     }
 
     /**
-     * Gets triggered every time on update
-
-     * @ORM\PreUpdate
+     * @param mixed $createdAt
      */
-    public function onPreUpdate()
+    public function setCreatedAt($createdAt)
     {
-        $this->updatedAt = new \DateTime("now");
+        $this->createdAt = $createdAt;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param mixed $updatedAt
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+    }
+
+
 }

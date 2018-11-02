@@ -2,17 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Service\WordService;
+use App\Service\JobTypeService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class WordController extends Controller
+class JobTypeController extends Controller
 {
-    private $wordService;
-
-    public function __construct(WordService $wordService)
+    private $jobTypeService;
+    public function __construct(JobTypeService $jobType)
     {
-        $this->wordService=$wordService;
+        $this->jobTypeService=$jobType;
     }
 
     /**
@@ -20,10 +19,9 @@ class WordController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $words=$this->wordService->getAllWords();
-        return view('admin.list-words',compact('words'));
+    public function index(){
+        $jobTypes= $this->jobTypeService->getAllActiveJobType();
+        return view('admin.list-jobType', compact('jobTypes'));
     }
 
     /**
@@ -33,7 +31,7 @@ class WordController extends Controller
      */
     public function create()
     {
-        return view('admin.words');
+        return view('admin.job-type');
     }
 
     /**
@@ -44,15 +42,15 @@ class WordController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            "word"=>"required"
+        $this->validate($request, [
+            "jobType" => "required"
         ]);
 
-        $result=$this->wordService->saveWord($request);
-        if($result){
-            return redirect()->route('word.index')->with('success-msg','Word Added SuccessFully');
-        }else{
-            return redirect()->route('word.create')->with('error-msg','Something Went Wrong');
+        $result = $this->jobTypeService->saveJobType($request);
+        if ($result) {
+            return redirect()->route('jobtype.create')->with('success-msg', 'Job Type Added SuccessFully');
+        } else {
+            return redirect()->route('jobtype.create')->with('error-msg', 'Something Went Wrong');
         }
     }
 
@@ -75,8 +73,8 @@ class WordController extends Controller
      */
     public function edit($id)
     {
-        $words=$this->wordService->getWordById($id);
-        return view('admin.words',compact('words'));
+        $jobTypes = $this->jobTypeService->getJobTypebyId($id);
+        return view('admin.job-type', compact('jobTypes'));
     }
 
     /**
@@ -88,17 +86,16 @@ class WordController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            "word"=>"required"
+        $this->validate($request, [
+            "jobType" => "required"
         ]);
 
-        $result=$this->wordService->updateWord($request,$id);
-        if($result){
-            return redirect()->route('word.index')->with('success-msg','Word Updated SuccessFully');
-        }else{
-            return redirect()->route('word.index')->with('error-msg','Something Went Wrong');
+        $result = $this->jobTypeService->updateJobType($request,$id);
+        if ($result) {
+            return redirect()->route('jobtype.index')->with('success-msg', 'Job Type Updated SuccessFully');
+        } else {
+            return redirect()->route('jobtype.create')->with('error-msg', 'Something Went Wrong');
         }
-
     }
 
     /**

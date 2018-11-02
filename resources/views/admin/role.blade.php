@@ -36,7 +36,7 @@
                                         <input type="hidden" name="_method" value="PUT">
                                     @endif
                                     <div class="col-md-12">
-                                        <div class="col-md-8 float-left">
+                                        <div class="col-md-6 float-left">
                                             <div class="form-group row">
                                                 <label class="col-lg-4 col-form-label" for="role-name">Role Name<span class="text-danger">*</span></label>
                                                 <div class="col-lg-6">
@@ -44,10 +44,29 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="col-md-6 float-left">
+                                            <label>Permission : </label>
+                                            <ul class="file-tree">
+                                                @foreach($routers as $key => $router)
+                                                    <li><a href="#">{{ucfirst($key)}}</a>
+                                                    @foreach($router as $route)
+                                                        <ul>
+                                                            <li>
+                                                                <input type="checkbox" name="permission[]" value="{{$route['pageName']}}" @if(isset($role))
+                                                                @foreach($permissions as $permission)
+                                                                @if($route['pageName']==$permission) checked @else  @endif
+                                                                        @endforeach
+                                                                        @endif>@if($route['pageMethod']=='destroy')  Delete @else  {{ucfirst($route['pageMethod'])}} @endif
+                                                            </li>
+                                                        </ul>
+                                                    @endforeach
+                                                @endforeach
+                                            </ul>
+                                        </div>
                                     </div>
-                                    <div class="col-md-12 form-group row">
+                                    <div class="col-md-12 center form-group row">
                                         <div class="col-lg-8 ml-auto">
-                                            <button type="submit" class="btn btn-primary pull-right">Submit</button>
+                                            <button type="submit" class="btn btn-primary center-block">Submit</button>
                                         </div>
                                     </div>
                                 </form>
@@ -64,10 +83,10 @@
 @endsection
 
 @push('scripts')
-    <script type="text/javascript" src="{{asset('js/subadmin.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/roles.js')}}"></script>
     <script type="text/javascript">
         $('document').ready(function () {
-            SubAdmin.initControls();
+            Roles.initControls();
         });
     </script>
 @endpush

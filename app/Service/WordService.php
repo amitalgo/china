@@ -12,4 +12,10 @@ namespace App\Service;
 interface WordService
 {
     public function getAllWords();
+
+    public function saveWord($request);
+
+    public function getWordById($id);
+
+    public function updateWord($request,$id);
 }

@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Service\WordService;
+use App\Service\EnquiryService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Response;
 
-class WordController extends Controller
+class EnquiryController extends Controller
 {
-    private $wordService;
+    private $enquiryService;
 
-    public function __construct(WordService $wordService)
+    public function __construct(EnquiryService $enquiryService)
     {
-        $this->wordService=$wordService;
+        $this->enquiryService=$enquiryService;
     }
 
     /**
@@ -22,8 +24,8 @@ class WordController extends Controller
      */
     public function index()
     {
-        $words=$this->wordService->getAllWords();
-        return view('admin.list-words',compact('words'));
+        $enquiries=$this->enquiryService->getAllEnquiries();
+        return view('admin.list-enquiries',compact('enquiries'));
     }
 
     /**
@@ -33,7 +35,7 @@ class WordController extends Controller
      */
     public function create()
     {
-        return view('admin.words');
+        //
     }
 
     /**
@@ -44,16 +46,7 @@ class WordController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            "word"=>"required"
-        ]);
-
-        $result=$this->wordService->saveWord($request);
-        if($result){
-            return redirect()->route('word.index')->with('success-msg','Word Added SuccessFully');
-        }else{
-            return redirect()->route('word.create')->with('error-msg','Something Went Wrong');
-        }
+        //
     }
 
     /**
@@ -75,8 +68,7 @@ class WordController extends Controller
      */
     public function edit($id)
     {
-        $words=$this->wordService->getWordById($id);
-        return view('admin.words',compact('words'));
+        //
     }
 
     /**
@@ -88,17 +80,7 @@ class WordController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            "word"=>"required"
-        ]);
-
-        $result=$this->wordService->updateWord($request,$id);
-        if($result){
-            return redirect()->route('word.index')->with('success-msg','Word Updated SuccessFully');
-        }else{
-            return redirect()->route('word.index')->with('error-msg','Something Went Wrong');
-        }
-
+        //
     }
 
     /**
@@ -110,5 +92,10 @@ class WordController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getEnquiryById(Request $request){
+        $enquiryDet=$this->enquiryService->getEnquiryById($request);
+        return json_encode(['sub'=>$enquiryDet->getSubject(),'date'=>$enquiryDet->getCreatedAt(),'name'=>$enquiryDet->getUserId()->getFirstName().' '.$enquiryDet->getUserId()->getLastName(),'email'=>$enquiryDet->getUserId()->getEmail(),'contact'=>$enquiryDet->getContactNo(),'msg'=>$enquiryDet->getMessage()]);
     }
 }

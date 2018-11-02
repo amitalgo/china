@@ -12,4 +12,10 @@ namespace App\Repository;
 interface WordRepository
 {
     public function findAllWords();
+
+    public function saveOrUpdateWord($word);
+
+    public function findWordById($id);
+
+    public function deleteExistingWordMeaning($id);
 }

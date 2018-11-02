@@ -75,14 +75,17 @@ class AdminController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            "role-name" =>"required"
+            "first-name" =>"required",
+            "email" =>"required",
+            "password" =>"required",
+            "cpassword" =>"required",
+            "contact" =>"required"
         ]);
-
-        $result  = $this->roleService->saveRole($request);
+         $result  = $this->adminService->saveAdmin($request);
         if($result){
-            return redirect()->route('role.index')->with('success-msg','Role Added SuccessFully');
+            return redirect()->route('sub-admin.create')->with('success-msg','Admin Added SuccessFully');
         }else{
-            return redirect()->route('role.create')->with('error-msg','Something Went Wrong');
+            return redirect()->route('sub-admin.create')->with('error-msg','Something Went Wrong');
         }
     }
 
@@ -119,8 +122,10 @@ class AdminController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request,[
-            "role-name" =>"required",
+        Validator::make($request->all(),[
+            "first-name" =>"required",
+            "email" =>"required",
+            "contact" =>"required"
         ]);
 
         $result = $this->adminService->updateAdmin($request,$id);

@@ -33,7 +33,7 @@
                             <table id="myTable" class="table table-bordered table-striped">
                                 <thead>
                                 <tr>
-                                    <th>ID</th>
+                                    {{--<th>ID</th>--}}
                                     <th>Word</th>
                                     <th>Meaning</th>
                                     <th>Action</th>
@@ -42,14 +42,14 @@
                                 <tbody>
                                     @foreach($words as $word)
                                     <tr>
-                                        <td>{{ $word->getId() }}</td>
+                                        {{--<td>{{ $word->getId() }}</td>--}}
                                         <td>{{ $word->getWord() }}</td>
                                         <td>
                                             <ul>
                                             @foreach($word->getWordId() as $wordmeaning)
                                                     <b><li>{{ ucfirst(trans($wordmeaning->getType()))}}</li></b>
-                                                    <li>{{ $wordmeaning->getMeaning()}}</li>
-                                                    <li> <i>ex. {{ $wordmeaning->getExample()}}</i> </li>
+                                                    <li>{{ ($wordmeaning->getMeaning())? $wordmeaning->getMeaning()  :'Not Mentioned'}}</li>
+                                                    <li> <i>ex. {{($wordmeaning->getExample())?$wordmeaning->getExample(): 'Not Mentioned' }}</i> </li>
                                             @endforeach
                                             </ul>
                                         </td>

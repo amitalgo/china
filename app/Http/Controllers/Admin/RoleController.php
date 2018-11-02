@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Service\RoleService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Route;
 use Validator;
 
 class RoleController extends Controller
@@ -14,6 +15,20 @@ class RoleController extends Controller
     public function __construct(RoleService $roleService)
     {
         $this->roleService=$roleService;
+    }
+
+    public function allRoutes(){
+        $routes = Route::getRoutes();
+        $routesArray=[];
+        foreach ($routes as $route){
+            if($route->getPrefix()=='admin/'){
+                if(in_array('DELETE',$route->methods()) || in_array('GET',$route->methods())){
+                    $method=$route->getName();
+                $routesArray[substr($method,0,strpos($method, "."))][substr($method,strrpos($method, ".")+1)] = ["pageName"=>$route->getName(),"pageMethod"=>substr($method,strpos($method, ".")+1)];
+                }
+            }
+        }
+        return $routesArray;
     }
 
     /**
@@ -34,7 +49,8 @@ class RoleController extends Controller
      */
     public function create()
     {
-        return view('admin.role');
+        $routers  = $this->allRoutes();
+        return view('admin.role',compact('routers'));
     }
 
     /**
@@ -46,7 +62,8 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            "role-name" =>"required"
+            "role-name" =>"required",
+            "permission" => "required"
         ]);
 
         $result = $this->roleService->saveRole($request);
@@ -77,7 +94,9 @@ class RoleController extends Controller
     public function edit($id)
     {
         $role = $this->roleService->getActiveRoleById($id);
-        return view('admin.role',compact('role'));
+        $permissions=json_decode($role->getPermission());
+        $routers  = $this->allRoutes();
+        return view('admin.role',compact('role','permissions','routers'));
     }
 
     /**

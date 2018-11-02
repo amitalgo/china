@@ -44,6 +44,9 @@ Route::group(['prefix'=>'admin'], function (){
         // Role
         Route::resource('/role','Admin\RoleController');
 
+        // Job Type
+        Route::resource('/jobtype','Admin\JobTypeController');
+
         // Job Posted
         Route::resource('/jobposted','Admin\JobPostedController');
         Route::post('/jobposted/approveordisapprovejob','Admin\JobPostedController@approveJob');
@@ -55,6 +58,13 @@ Route::group(['prefix'=>'admin'], function (){
 
         // Word
         Route::resource('/word','Admin\WordController');
+
+        //User
+        Route::resource('/user','Admin\UserController');
+
+        // Enquiry
+        Route::resource('/enquiries','Admin\EnquiryController');
+        Route::post('/enquiries/getEnquiryById','Admin\EnquiryController@getEnquiryById')->name('enquiries.get');
 
     });
 });

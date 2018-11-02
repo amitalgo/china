@@ -9,6 +9,7 @@
 
 namespace  App\Entities;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -40,23 +41,24 @@ class Word
     private $isActive;
 
     /**
-     * @var datetime $createdAt
-     *
      * @ORM\Column(type="datetime")
      */
-    protected $createdAt;
+    private $createdAt;
 
     /**
-     * @var datetime $updatedAt
-     *
-     * @ORM\Column(type="datetime", nullable = true)
+     * @ORM\Column(type="datetime")
      */
-    protected $updatedAt;
+    private $updatedAt;
 
     /**
      * @ORM\OneToMany(targetEntity="WordMeaning", fetch="EAGER",mappedBy="wordId",cascade={"persist"})
      */
     private $wordId;
+
+    public function __construct()
+    {
+        $this->wordId=new ArrayCollection();
+    }
 
     /**
      * @return int
@@ -122,24 +124,40 @@ class Word
         $this->wordId = $wordId;
     }
 
-
     /**
-     * Gets triggered only on insert
-
-     * @ORM\PrePersist
+     * @return mixed
      */
-    public function onPrePersist()
+    public function getCreatedAt()
     {
-        $this->createdAt = new \DateTime("now");
+        return $this->createdAt;
     }
 
     /**
-     * Gets triggered every time on update
-
-     * @ORM\PreUpdate
+     * @param mixed $createdAt
      */
-    public function onPreUpdate()
+    public function setCreatedAt($createdAt)
     {
-        $this->updatedAt = new \DateTime("now");
+        $this->createdAt = $createdAt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param mixed $updatedAt
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+    }
+
+    public function addWordMeaning(WordMeaning $wordMeanings){
+        $wordMeanings->setWordId($this);
+        $this->wordId->add($wordMeanings);
     }
 }
