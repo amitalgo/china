@@ -8,6 +8,7 @@
         <link href="{{asset('css/style.css')}}" rel="stylesheet">
         <link href="{{ asset('css/bootstrap-toggle.css') }}" rel="stylesheet">
         <link rel="stylesheet" href="{{ asset('css/file-explore.css') }}">
+        <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
 
         <style>
             .alertify{
@@ -110,7 +111,7 @@
                             </li>
                             <li class="nav-label">Content Management</li>
                             <li class="item2" id="layout_3" role="presentation">
-                                <a href="#" aria-expanded="false">
+                                <a href="{{ url('admin/cms') }}" aria-expanded="false">
                                     <i class="icon-item2 fa fa-book"></i>
                                     <span>About Us</span>
                                 </a>
@@ -201,6 +202,10 @@
 
         {{--File Explore--}}
         <script src="{{ asset('js/file-explore.js') }}"></script>
+
+        {{-- Tiny MCE Editor --}}
+{{--        <script src="{{ asset('js/ckeditor.js') }}"></script>--}}
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
 
         @stack('scripts')
     </body>

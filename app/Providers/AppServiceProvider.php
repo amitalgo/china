@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Entities\Admin;
 use App\Entities\AdminRole;
+use App\Entities\CMS;
 use App\Entities\ContactUsList;
 use App\Entities\JobApplied;
 use App\Entities\JobPosted;
@@ -14,8 +15,10 @@ use App\Entities\User;
 use App\Entities\UserRole;
 use App\Entities\Word;
 use App\Repository\AdminRoleRepository;
+use App\Repository\CmsRepository;
 use App\Repository\EnquiryRepository;
 use App\Repository\Impl\AdminRoleRepositoryImpl;
+use App\Repository\Impl\CmsRepositoryImpl;
 use App\Repository\Impl\EnquiryRepositoryImpl;
 use App\Repository\Impl\JobAppliedRepositoryImpl;
 use App\Repository\Impl\JobPostedRepositoryImpl;
@@ -36,8 +39,10 @@ use App\Repository\UserRepository;
 use App\Repository\UserRoleRepository;
 use App\Repository\WordRepository;
 use App\Service\AdminRoleService;
+use App\Service\CmsService;
 use App\Service\EnquiryService;
 use App\Service\Impl\AdminRoleServiceImpl;
+use App\Service\Impl\CmsServiceImpl;
 use App\Service\Impl\EnquiryServiceImpl;
 use App\Service\Impl\JobAppliedServiceImpl;
 use App\Service\Impl\JobPostedServiceImpl;
@@ -93,6 +98,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(WordService::class,WordServiceImpl::class);
         $this->app->bind(EnquiryService::class,EnquiryServiceImpl::class);
         $this->app->bind(RoleService::class,RoleServiceImpl::class);
+        $this->app->bind(CmsService::class,CmsServiceImpl::class);
         /*
          * Repository Binding
          */
@@ -169,6 +175,13 @@ class AppServiceProvider extends ServiceProvider
             return new RoleRepositoryImpl(
                 $app['em'],
                 $app['em']->getClassMetaData(Role::class)
+            );
+        });
+
+        $this->app->bind(CmsRepository::class, function ($app){
+            return new CmsRepositoryImpl(
+                $app['em'],
+                $app['em']->getClassMetaData(CMS::class)
             );
         });
     }

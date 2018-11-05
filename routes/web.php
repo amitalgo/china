@@ -54,6 +54,9 @@ Route::group(['prefix'=>'admin'], function (){
             Route::resource('/enquiries', 'Admin\EnquiryController');
             Route::post('/enquiries/getEnquiryById', 'Admin\EnquiryController@getEnquiryById')->name('enquiries.get');
 
+            //CMS
+            Route::resource('/cms','Admin\CmsController');
+
         });
     });
 });
